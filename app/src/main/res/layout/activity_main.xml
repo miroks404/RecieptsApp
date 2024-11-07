@@ -8,35 +8,40 @@
     tools:context=".MainActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="328dp"
-        android:layout_height="36dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/main_space_16"
+        android:layout_marginEnd="@dimen/main_space_16"
         android:layout_marginBottom="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
         <Button
-            android:id="@+id/button2"
-            android:layout_width="162dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="4dp"
-            android:text="Категории"
+            android:id="@+id/bCategory"
             style="@style/NavButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/main_space_4"
+            android:text="@string/category_text"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/bFavorites"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:layout_width="162dp"
+            android:id="@+id/bFavorites"
+            style="@style/ButtonFavoriteStyle"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
+            android:layout_marginStart="@dimen/main_space_4"
             android:drawableEnd="@drawable/ic_favorite"
-            android:drawablePadding="12dp"
-            android:text="Избранное"
+            android:drawablePadding="@dimen/main_space_12"
             android:gravity="center"
-            style="@style/NavButtonStyle"
+            android:text="@string/favorite_text"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/bCategory"
             app:layout_constraintTop_toTopOf="parent" />
 
 
