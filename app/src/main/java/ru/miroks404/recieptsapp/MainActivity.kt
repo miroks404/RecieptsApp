@@ -2,7 +2,7 @@ package ru.miroks404.recieptsapp
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentTransaction
+import androidx.fragment.app.commit
 import ru.miroks404.recieptsapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -17,7 +17,16 @@ class MainActivity : AppCompatActivity() {
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.commit()
+        val fragment = CategoriesListFragment()
+
+        val fragmentManager = supportFragmentManager
+
+        fragmentManager.commit {
+            val fragmentTransaction = fragmentManager.beginTransaction()
+
+            fragmentTransaction.add(R.id.mainContainer, fragment)
+
+            fragmentTransaction.commit()
+        }
     }
 }
