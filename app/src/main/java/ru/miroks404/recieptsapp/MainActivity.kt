@@ -2,6 +2,7 @@ package ru.miroks404.recieptsapp
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.add
 import androidx.fragment.app.commit
 import ru.miroks404.recieptsapp.databinding.ActivityMainBinding
 
@@ -16,17 +17,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        val fragment = CategoriesListFragment()
-
-        val fragmentManager = supportFragmentManager
-
-        fragmentManager.commit {
-            val fragmentTransaction = fragmentManager.beginTransaction()
-
-            fragmentTransaction.add(R.id.mainContainer, fragment)
-
-            fragmentTransaction.commit()
+        if (_binding == null)
+        supportFragmentManager.commit {
+            setReorderingAllowed(true)
+            add<CategoriesListFragment>(R.id.mainContainer)
         }
     }
 }
