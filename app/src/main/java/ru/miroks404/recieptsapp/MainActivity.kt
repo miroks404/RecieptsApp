@@ -28,8 +28,9 @@ class MainActivity : AppCompatActivity() {
         binding.bCategory.setOnClickListener {
 
             supportFragmentManager.commit {
+                val categoryFragment = CategoriesListFragment()
                 setReorderingAllowed(true)
-                add<CategoriesListFragment>(R.id.containerMain)
+                replace(R.id.containerMain, categoryFragment)
                 addToBackStack(null)
             }
 
@@ -38,8 +39,9 @@ class MainActivity : AppCompatActivity() {
         binding.bFavorites.setOnClickListener {
 
             supportFragmentManager.commit {
+                val favoritesFragment = FavoritesFragment()
                 setReorderingAllowed(true)
-                add<FavoritesFragment>(R.id.containerMain)
+                replace(R.id.containerMain, favoritesFragment)
                 addToBackStack(null)
             }
 
