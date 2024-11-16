@@ -17,10 +17,35 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        if (_binding == null)
-        supportFragmentManager.commit {
-            setReorderingAllowed(true)
-            add<CategoriesListFragment>(R.id.mainContainer)
+
+        if (savedInstanceState == null) {
+            supportFragmentManager.commit {
+                setReorderingAllowed(true)
+                add<CategoriesListFragment>(R.id.containerMain)
+            }
+        }
+
+        binding.bCategory.setOnClickListener {
+
+            supportFragmentManager.commit {
+                val categoryFragment = CategoriesListFragment()
+                setReorderingAllowed(true)
+                replace(R.id.containerMain, categoryFragment)
+                addToBackStack(null)
+            }
+
+        }
+
+        binding.bFavorites.setOnClickListener {
+
+            supportFragmentManager.commit {
+                val favoritesFragment = FavoritesFragment()
+                setReorderingAllowed(true)
+                replace(R.id.containerMain, favoritesFragment)
+                addToBackStack(null)
+            }
+
         }
     }
 }
+
