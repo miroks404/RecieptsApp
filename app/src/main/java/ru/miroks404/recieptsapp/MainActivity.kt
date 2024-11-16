@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
+import androidx.fragment.app.replace
 import ru.miroks404.recieptsapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -28,9 +29,8 @@ class MainActivity : AppCompatActivity() {
         binding.bCategory.setOnClickListener {
 
             supportFragmentManager.commit {
-                val categoryFragment = CategoriesListFragment()
                 setReorderingAllowed(true)
-                replace(R.id.containerMain, categoryFragment)
+                replace<CategoriesListFragment>(R.id.containerMain)
                 addToBackStack(null)
             }
 
@@ -39,9 +39,8 @@ class MainActivity : AppCompatActivity() {
         binding.bFavorites.setOnClickListener {
 
             supportFragmentManager.commit {
-                val favoritesFragment = FavoritesFragment()
                 setReorderingAllowed(true)
-                replace(R.id.containerMain, favoritesFragment)
+                replace<FavoritesFragment>(R.id.containerMain)
                 addToBackStack(null)
             }
 
