@@ -9,4 +9,6 @@
 
     <dimen name="text_size_14">14sp</dimen>
 
+    <dimen name="categories_image_height_size">224dp</dimen>
+
 </resources>
