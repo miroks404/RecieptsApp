@@ -11,4 +11,6 @@
 
     <dimen name="categories_image_height_size">224dp</dimen>
 
+    <dimen name="category_item_height">130dp</dimen>
+
 </resources>
