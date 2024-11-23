@@ -25,11 +25,10 @@ class CategoryListAdapter(private val dataSet: List<Category>) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
-        val inflater = LayoutInflater.from(parent.context)
+        val binding =
+            ItemCategoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
-        val view = inflater.inflate(R.layout.item_category, parent, false)
-
-        return ViewHolder(view)
+        return ViewHolder(binding.root)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -40,13 +39,14 @@ class CategoryListAdapter(private val dataSet: List<Category>) :
         holder.descriptionTextView.text = category.description
 
         val drawable = try {
-                Drawable.createFromStream(holder.itemView.context.assets.open(category.imageUrl), null)
+            Drawable.createFromStream(holder.itemView.context.assets.open(category.imageUrl), null)
         } catch (e: Exception) {
             Log.d("Not found", "Image not found: ${category.imageUrl}")
             null
         }
 
         holder.imageView.setImageDrawable(drawable)
+        holder.imageView.contentDescription = category.title
 
     }
 

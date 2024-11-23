@@ -6,6 +6,8 @@
     android:layout_marginHorizontal="@dimen/main_space_8"
     android:layout_marginVertical="@dimen/main_space_8"
     android:clickable="true"
+    android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground"
     app:cardCornerRadius="@dimen/button_corner_radius_8">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -38,10 +40,8 @@
             android:id="@+id/tvCategoryDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/main_space_8"
-            android:layout_marginTop="@dimen/main_space_8"
-            android:layout_marginBottom="@dimen/main_space_8"
             android:fontFamily="@font/montserrat_medium"
+            android:padding="@dimen/main_space_8"
             android:text="Рецепты всех\nпопулярных видов\nбургеров"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
