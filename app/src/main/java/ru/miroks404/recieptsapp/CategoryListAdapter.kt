@@ -14,6 +14,16 @@ import ru.miroks404.recieptsapp.databinding.ItemCategoryBinding
 class CategoryListAdapter(private val dataSet: List<Category>) :
     RecyclerView.Adapter<CategoryListAdapter.ViewHolder>() {
 
+    interface OnItemClickListener {
+        fun onItemClick()
+    }
+
+    private var itemClickListener: OnItemClickListener? = null
+
+    fun setOnItemClickListener(listener: OnItemClickListener) {
+        itemClickListener = listener
+    }
+
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         private val binding = ItemCategoryBinding.bind(view)
@@ -47,6 +57,10 @@ class CategoryListAdapter(private val dataSet: List<Category>) :
 
         holder.imageView.setImageDrawable(drawable)
         holder.imageView.contentDescription = category.title
+
+        holder.itemView.setOnClickListener {
+            itemClickListener?.onItemClick()
+        }
 
     }
 
