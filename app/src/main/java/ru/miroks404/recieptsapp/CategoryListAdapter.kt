@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import ru.miroks404.recieptsapp.Domain.Category
+import ru.miroks404.recieptsapp.domain.Category
 import ru.miroks404.recieptsapp.databinding.ItemCategoryBinding
 
 class CategoryListAdapter(private val dataSet: List<Category>) :

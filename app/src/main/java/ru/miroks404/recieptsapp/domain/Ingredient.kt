@@ -1,4 +1,4 @@
-package ru.miroks404.recieptsapp.Domain
+package ru.miroks404.recieptsapp.domain
 
 class Ingredient(
     val quantity: String,
