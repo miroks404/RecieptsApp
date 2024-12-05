@@ -1,6 +1,6 @@
-package ru.miroks404.recieptsapp.Data
+package ru.miroks404.recieptsapp.data
 
-import ru.miroks404.recieptsapp.Domain.Category
+import ru.miroks404.recieptsapp.domain.Category
 
 object STUB {
 
