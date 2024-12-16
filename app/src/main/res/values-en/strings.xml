@@ -2,5 +2,6 @@
     <string name="app_name" translatable="false">RecieptsApp</string>
     <string name="category_text">Categories</string>
     <string name="favorite_text">Favorite</string>
+    <string name="burgers_text">Burgers</string>
 
 </resources>
