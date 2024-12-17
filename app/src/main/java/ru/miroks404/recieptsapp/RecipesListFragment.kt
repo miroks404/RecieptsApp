@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import ru.miroks404.recieptsapp.data.STUB
+import ru.miroks404.recieptsapp.data.STUB.getRecipeById
 import ru.miroks404.recieptsapp.databinding.FragmentRecipesListBinding
 
 class RecipesListFragment: Fragment(R.layout.fragment_recipes_list) {
@@ -51,15 +52,22 @@ class RecipesListFragment: Fragment(R.layout.fragment_recipes_list) {
         binding.rvRecipesList.adapter = recipesListAdapter
         recipesListAdapter.setOnItemClickListener(object : RecipesListAdapter.OnItemClickListener {
             override fun onItemClick(recipeId: Int) {
-                openRecipeByRecipeId()
+                openRecipeByRecipeId(recipeId)
             }
         })
     }
 
-    private fun openRecipeByRecipeId() {
+    private fun openRecipeByRecipeId(recipeId: Int) {
+
+        val recipe = getRecipeById(recipeId)
+
+        val bundle = Bundle()
+
+        bundle.putParcelable(Constants.KEY_RECIPE, recipe)
+
         fragmentManager?.commit {
             setReorderingAllowed(true)
-            replace<RecipeFragment>(R.id.containerMain)
+            replace<RecipeFragment>(R.id.containerMain, args = bundle)
         }
     }
 

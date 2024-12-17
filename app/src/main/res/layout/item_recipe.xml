@@ -34,7 +34,7 @@
             android:layout_marginTop="@dimen/main_space_8"
             android:text="Бургеры"
             android:textColor="@color/textColor"
-            android:textSize="@dimen/titles_size_20"
+            android:textSize="@dimen/text_size_14"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ivRecipe" />
 

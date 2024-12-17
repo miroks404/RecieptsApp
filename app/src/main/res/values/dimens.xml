@@ -13,6 +13,6 @@
 
     <dimen name="category_item_height">130dp</dimen>
 
-    <dimen name="titles_size_20">20sp</dimen>
+    <dimen name="text_size_20">20sp</dimen>
 
 </resources>
