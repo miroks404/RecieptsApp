@@ -280,4 +280,6 @@ object STUB {
         return if (categoryId == 0) burgerRecipes else listOf()
     }
 
+    fun getRecipeById(recipeId: Int) : Recipe = burgerRecipes[recipeId]
+
 }
