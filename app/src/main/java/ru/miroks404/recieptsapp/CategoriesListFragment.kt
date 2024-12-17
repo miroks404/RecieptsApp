@@ -52,9 +52,9 @@ class CategoriesListFragment : Fragment(R.layout.fragment_list_categories) {
         val category = STUB.getCategories()[categoryId]
 
         val bundle = bundleOf(
-            "ARG_CATEGORY_ID" to categoryId,
-            "ARG_CATEGORY_NAME" to category.title,
-            "ARG_CATEGORY_IMAGE_URL" to category.imageUrl
+            Constants.KEY_CATEGORY_ID to categoryId,
+            Constants.KEY_CATEGORY_NAME to category.title,
+            Constants.KEY_CATEGORY_IMAGE_URL to category.imageUrl
         )
 
         fragmentManager?.commit {

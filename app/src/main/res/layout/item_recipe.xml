@@ -12,10 +12,11 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/main_space_8">
 
         <ImageView
-            android:id="@+id/ivCategory"
+            android:id="@+id/ivRecipe"
             android:layout_width="match_parent"
             android:layout_height="@dimen/category_item_height"
             android:scaleType="centerCrop"
@@ -25,7 +26,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tvCategory"
+            android:id="@+id/tvRecipe"
             style="@style/ButtonTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -35,17 +36,7 @@
             android:textColor="@color/textColor"
             android:textSize="@dimen/titles_size_20"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ivCategory" />
-
-        <TextView
-            android:id="@+id/tvCategoryDescription"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/montserrat_medium"
-            android:padding="@dimen/main_space_8"
-            android:text="Рецепты всех\nпопулярных видов\nбургеров"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvCategory" />
+            app:layout_constraintTop_toBottomOf="@id/ivRecipe" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
