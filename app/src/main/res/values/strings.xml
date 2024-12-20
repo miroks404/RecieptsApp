@@ -3,5 +3,7 @@
     <string name="category_text">Категории</string>
     <string name="favorite_text">Избранное</string>
     <string name="burgers_text">Бургеры</string>
+    <string name="ingredients_text">Ингредиенты</string>
+    <string name="cooking_method_text">Способ приготовления</string>
 
 </resources>
