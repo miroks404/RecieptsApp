@@ -3,7 +3,6 @@ package ru.miroks404.recieptsapp
 import android.graphics.drawable.Drawable
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
@@ -24,10 +23,7 @@ class CategoryListAdapter(private val dataSet: List<Category>) :
         itemClickListener = listener
     }
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-
-        private val binding = ItemCategoryBinding.bind(view)
-
+    class ViewHolder(binding: ItemCategoryBinding) : RecyclerView.ViewHolder(binding.root) {
         val imageView: ImageView = binding.ivCategory
         val titleTextView: TextView = binding.tvCategory
         val descriptionTextView: TextView = binding.tvCategoryDescription
@@ -38,7 +34,7 @@ class CategoryListAdapter(private val dataSet: List<Category>) :
         val binding =
             ItemCategoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
-        return ViewHolder(binding.root)
+        return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

@@ -1,7 +1,6 @@
 package ru.miroks404.recieptsapp
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -11,10 +10,7 @@ import ru.miroks404.recieptsapp.domain.Ingredient
 class IngredientsAdapter(private val dataSet: List<Ingredient>) :
     RecyclerView.Adapter<IngredientsAdapter.ViewHolder>() {
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-
-        private val binding = ItemIngredientBinding.bind(view)
-
+    class ViewHolder(binding: ItemIngredientBinding) : RecyclerView.ViewHolder(binding.root) {
         val textView: TextView = binding.tvIngredient
         val quantity: TextView = binding.tvQuantity
     }
@@ -24,7 +20,7 @@ class IngredientsAdapter(private val dataSet: List<Ingredient>) :
         val binding =
             ItemIngredientBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
-        return ViewHolder(binding.root)
+        return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import ru.miroks404.recieptsapp.data.STUB
@@ -40,9 +41,9 @@ class RecipeFragment : Fragment() {
             requireArguments().getParcelable(Constants.KEY_RECIPE)
         }
 
-        initUI(recipe!!)
+        recipe?.let { initUI(it) }
 
-        initRecycler(recipe.id)
+        recipe?.id?.let { initRecycler(it) }
     }
 
     override fun onDestroyView() {
@@ -72,7 +73,16 @@ class RecipeFragment : Fragment() {
         binding.rvMethod.adapter = methodsAdapter
 
         val divider =
-            MaterialDividerItemDecoration(this.requireContext(), LinearLayoutManager.VERTICAL)
+            MaterialDividerItemDecoration(
+                this.requireContext(),
+                LinearLayoutManager.VERTICAL
+            ).apply {
+                isLastItemDecorated = false
+                dividerInsetStart = 36
+                dividerInsetEnd = 36
+                dividerColor = ContextCompat.getColor(requireContext(), R.color.divider_color)
+                dividerThickness = 3
+            }
 
         binding.rvIngredients.addItemDecoration(divider)
         binding.rvMethod.addItemDecoration(divider)

@@ -8,6 +8,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/statusBarColor"
         android:orientation="vertical">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,15 +24,12 @@
 
             <TextView
                 android:id="@+id/tvRecipe"
-                style="@style/ButtonTextStyle"
+                style="@style/header_text_with_background"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/main_space_16"
                 android:layout_marginBottom="@dimen/main_space_16"
-                android:background="@drawable/shape_category_text"
                 android:text="@string/category_text"
-                android:textColor="@color/textColor"
-                android:textSize="@dimen/text_size_20"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
@@ -40,16 +38,14 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_marginHorizontal="@dimen/main_space_16">
+            android:layout_marginHorizontal="@dimen/main_space_16"
+            android:orientation="vertical">
 
             <TextView
-                style="@style/ButtonTextStyle"
+                style="@style/header_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/ingredients_text"
-                android:textColor="@color/textColor"
-                android:textSize="@dimen/text_size_20" />
+                android:text="@string/ingredients_text" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvIngredients"
@@ -57,18 +53,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/main_space_8"
                 android:layout_marginVertical="@dimen/main_space_8"
+                android:background="@drawable/shape_recipe_recyclers"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:spanCount="2"
                 tools:itemCount="10"
                 tools:listitem="@layout/item_ingredient" />
 
             <TextView
-                style="@style/ButtonTextStyle"
+                style="@style/header_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/cooking_method_text"
-                android:textColor="@color/textColor"
-                android:textSize="@dimen/text_size_20" />
+                android:text="@string/cooking_method_text" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvMethod"
@@ -76,8 +70,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/main_space_8"
                 android:layout_marginVertical="@dimen/main_space_8"
+                android:background="@drawable/shape_recipe_recyclers"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:spanCount="2"
                 tools:itemCount="10"
                 tools:listitem="@layout/item_method" />
 

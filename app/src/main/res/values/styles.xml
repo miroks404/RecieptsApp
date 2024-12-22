@@ -19,5 +19,22 @@
         <item name="android:drawablePadding">@dimen/main_space_12</item>
         <item name="android:backgroundTint">@color/favoriteButtonColor</item>
     </style>
+    
+    <style name="header_text">
+        <item name="android:fontFamily">@font/montserrat_alternates_semi_bold</item>
+        <item name="android:textSize">@dimen/text_size_20</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/textColor</item>
+    </style>
+
+    <style name="header_text_with_background" parent="header_text">
+        <item name="android:background">@drawable/shape_category_text</item>
+    </style>
+
+    <style name="item_text">
+        <item name="android:fontFamily">@font/montserrat_regular</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/recipe_text_color</item>
+    </style>
 
 </resources>
