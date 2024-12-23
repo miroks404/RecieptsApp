@@ -3,7 +3,6 @@ package ru.miroks404.recieptsapp
 import android.graphics.drawable.Drawable
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
@@ -24,10 +23,7 @@ class RecipesListAdapter(private val dataSet: List<Recipe>) :
         itemClickListener = listener
     }
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-
-        private val binding = ItemRecipeBinding.bind(view)
-
+    class ViewHolder(binding: ItemRecipeBinding) : RecyclerView.ViewHolder(binding.root) {
         val imageView: ImageView = binding.ivRecipe
         val titleTextView: TextView = binding.tvRecipe
     }
@@ -37,7 +33,7 @@ class RecipesListAdapter(private val dataSet: List<Recipe>) :
         val binding =
             ItemRecipeBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
-        return ViewHolder(binding.root)
+        return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

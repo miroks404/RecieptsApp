@@ -3,5 +3,7 @@
     <string name="category_text">Categories</string>
     <string name="favorite_text">Favorite</string>
     <string name="burgers_text">Burgers</string>
+    <string name="ingredients_text">Ingredients</string>
+    <string name="cooking_method_text">Cooking method</string>
 
 </resources>
