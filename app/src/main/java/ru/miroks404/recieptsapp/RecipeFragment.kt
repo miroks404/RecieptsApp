@@ -78,8 +78,8 @@ class RecipeFragment : Fragment() {
                 LinearLayoutManager.VERTICAL
             ).apply {
                 isLastItemDecorated = false
-                dividerInsetStart = 36
-                dividerInsetEnd = 36
+                dividerInsetStart = 24
+                dividerInsetEnd = 24
                 dividerColor = ContextCompat.getColor(requireContext(), R.color.divider_color)
                 dividerThickness = 3
             }

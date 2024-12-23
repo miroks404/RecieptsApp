@@ -4,19 +4,19 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import ru.miroks404.recieptsapp.databinding.ItemIngredientBinding
+import ru.miroks404.recieptsapp.databinding.ItemMethodBinding
 
 class MethodsAdapter(private val dataSet: List<String>) :
     RecyclerView.Adapter<MethodsAdapter.ViewHolder>() {
 
-    class ViewHolder(binding: ItemIngredientBinding) : RecyclerView.ViewHolder(binding.root) {
-        val textView: TextView = binding.tvIngredient
+    class ViewHolder(binding: ItemMethodBinding) : RecyclerView.ViewHolder(binding.root) {
+        val textView: TextView = binding.tvMethod
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
         val binding =
-            ItemIngredientBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemMethodBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
         return ViewHolder(binding)
     }
