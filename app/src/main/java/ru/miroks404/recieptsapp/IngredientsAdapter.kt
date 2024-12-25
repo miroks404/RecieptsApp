@@ -10,6 +10,8 @@ import ru.miroks404.recieptsapp.domain.Ingredient
 class IngredientsAdapter(private val dataSet: List<Ingredient>) :
     RecyclerView.Adapter<IngredientsAdapter.ViewHolder>() {
 
+    private var quantity: Int = 1
+
     class ViewHolder(binding: ItemIngredientBinding) : RecyclerView.ViewHolder(binding.root) {
         val textView: TextView = binding.tvIngredient
         val quantity: TextView = binding.tvQuantity
@@ -28,10 +30,18 @@ class IngredientsAdapter(private val dataSet: List<Ingredient>) :
         val ingredient: Ingredient = dataSet[position]
 
         holder.textView.text = ingredient.description
-        holder.quantity.text = "${ingredient.quantity} ${ingredient.unitOfMeasure}"
-
+        holder.quantity.text = try {
+            "${ingredient.quantity.toInt() * quantity} ${ingredient.unitOfMeasure}"
+        } catch (e: NumberFormatException) {
+            "${ingredient.quantity.toDouble() * quantity} ${ingredient.unitOfMeasure}"
+        }
     }
 
     override fun getItemCount(): Int = dataSet.size
+
+    fun updateIngredients(progress: Int){
+        quantity = progress + 1
+        notifyDataSetChanged()
+    }
 
 }
