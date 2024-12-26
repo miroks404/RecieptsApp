@@ -81,6 +81,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="16dp"
                 android:layout_marginTop="@dimen/main_space_6"
+                android:min="1"
                 android:max="4" />
 
             <androidx.recyclerview.widget.RecyclerView
