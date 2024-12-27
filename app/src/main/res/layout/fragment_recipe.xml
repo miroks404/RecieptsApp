@@ -64,11 +64,11 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
+                    android:id="@+id/tvPortionQuantity"
                     style="@style/portions_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/main_space_6"
-                    android:text="@string/portions_text"
                     app:layout_constraintBottom_toBottomOf="@+id/tvPortions"
                     app:layout_constraintStart_toEndOf="@+id/tvPortions"
                     app:layout_constraintTop_toTopOf="@+id/tvPortions"
