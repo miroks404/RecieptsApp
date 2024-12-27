@@ -65,6 +65,9 @@ class RecipeFragment : Fragment() {
         binding.ivRecipe.setImageDrawable(drawable)
 
         binding.tvRecipe.text = recipe.title
+
+        binding.seekBar.setPadding(0, 0, 0, 0)
+        binding.seekBar.thumbOffset = -1
     }
 
     private fun initRecycler(recipeId: Int) {

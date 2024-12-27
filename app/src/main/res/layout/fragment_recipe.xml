@@ -78,11 +78,12 @@
 
             <SeekBar
                 android:id="@+id/seekBar"
+                style="@style/seek_bar"
                 android:layout_width="match_parent"
-                android:layout_height="16dp"
+                android:layout_height="30dp"
                 android:layout_marginTop="@dimen/main_space_6"
-                android:min="1"
-                android:max="4" />
+                android:max="5"
+                android:min="1" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvIngredients"
