@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SeekBar
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.divider.MaterialDividerItemDecoration
@@ -44,6 +45,7 @@ class RecipeFragment : Fragment() {
         recipe?.let { initUI(it) }
 
         recipe?.id?.let { initRecycler(it) }
+
     }
 
     override fun onDestroyView() {
@@ -86,6 +88,18 @@ class RecipeFragment : Fragment() {
 
         binding.rvIngredients.addItemDecoration(divider)
         binding.rvMethod.addItemDecoration(divider)
+
+        binding.seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                ingredientsAdapter.updateIngredients(progress)
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+            }
+        })
     }
 
 }

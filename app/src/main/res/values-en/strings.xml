@@ -5,5 +5,6 @@
     <string name="burgers_text">Burgers</string>
     <string name="ingredients_text">Ingredients</string>
     <string name="cooking_method_text">Cooking method</string>
+    <string name="portions_text">Portions:</string>
 
 </resources>
