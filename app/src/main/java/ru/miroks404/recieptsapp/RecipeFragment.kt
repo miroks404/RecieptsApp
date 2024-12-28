@@ -70,6 +70,22 @@ class RecipeFragment : Fragment() {
         binding.seekBar.thumbOffset = -1
 
         binding.tvPortionQuantity.text = "1"
+
+        binding.ibFavorite.setImageDrawable(
+            ContextCompat.getDrawable(
+                requireContext(),
+                R.drawable.ic_favorite
+            )
+        )
+        binding.ibFavorite.setOnClickListener {
+            binding.ibFavorite.setImageDrawable(
+                ContextCompat.getDrawable(
+                    requireContext(),
+                    R.drawable.ic_heart
+                )
+            )
+        }
+
     }
 
     private fun initRecycler(recipeId: Int) {
