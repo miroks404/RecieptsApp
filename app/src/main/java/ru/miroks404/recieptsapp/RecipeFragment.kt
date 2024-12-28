@@ -65,6 +65,11 @@ class RecipeFragment : Fragment() {
         binding.ivRecipe.setImageDrawable(drawable)
 
         binding.tvRecipe.text = recipe.title
+
+        binding.seekBar.setPadding(0, 0, 0, 0)
+        binding.seekBar.thumbOffset = -1
+
+        binding.tvPortionQuantity.text = "1"
     }
 
     private fun initRecycler(recipeId: Int) {
@@ -92,6 +97,7 @@ class RecipeFragment : Fragment() {
         binding.seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 ingredientsAdapter.updateIngredients(progress)
+                binding.tvPortionQuantity.text = progress.toString()
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {

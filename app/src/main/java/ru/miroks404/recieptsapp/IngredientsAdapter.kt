@@ -34,10 +34,10 @@ class IngredientsAdapter(private val dataSet: List<Ingredient>) :
         holder.textView.text = ingredient.description
 
         val totalQuantity = BigDecimal(ingredient.quantity) * BigDecimal(quantity)
+        val displayTotalQuantity =
+            totalQuantity.setScale(1, RoundingMode.HALF_UP).stripTrailingZeros().toPlainString()
         holder.quantity.text =
-            "${
-                totalQuantity.setScale(1, RoundingMode.HALF_UP).stripTrailingZeros().toPlainString()
-            } ${ingredient.unitOfMeasure}"
+            "$displayTotalQuantity ${ingredient.unitOfMeasure}"
     }
 
     override fun getItemCount(): Int = dataSet.size
