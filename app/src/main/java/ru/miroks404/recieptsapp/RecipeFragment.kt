@@ -24,6 +24,8 @@ class RecipeFragment : Fragment() {
         get() = _binding
             ?: throw IllegalStateException("Binding for FragmentRecipesListBinding must be not null")
 
+    private var isFavorite = false
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -78,8 +80,6 @@ class RecipeFragment : Fragment() {
                     R.drawable.ic_favorite
                 )
             )
-
-            var isFavorite = false
 
             ibFavorite.setOnClickListener {
                 if (isFavorite) {
