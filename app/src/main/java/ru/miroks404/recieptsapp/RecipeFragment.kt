@@ -62,28 +62,45 @@ class RecipeFragment : Fragment() {
             null
         }
 
-        binding.ivRecipe.setImageDrawable(drawable)
+        with(binding) {
+            ivRecipe.setImageDrawable(drawable)
 
-        binding.tvRecipe.text = recipe.title
+            tvRecipe.text = recipe.title
 
-        binding.seekBar.setPadding(0, 0, 0, 0)
-        binding.seekBar.thumbOffset = -1
+            seekBar.setPadding(0, 0, 0, 0)
+            seekBar.thumbOffset = -1
 
-        binding.tvPortionQuantity.text = "1"
+            tvPortionQuantity.text = "1"
 
-        binding.ibFavorite.setImageDrawable(
-            ContextCompat.getDrawable(
-                requireContext(),
-                R.drawable.ic_favorite
-            )
-        )
-        binding.ibFavorite.setOnClickListener {
-            binding.ibFavorite.setImageDrawable(
+            ibFavorite.setImageDrawable(
                 ContextCompat.getDrawable(
                     requireContext(),
-                    R.drawable.ic_heart
+                    R.drawable.ic_favorite
                 )
             )
+
+            var isFavorite = false
+
+            ibFavorite.setOnClickListener {
+                if (isFavorite) {
+                    ibFavorite.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            requireContext(),
+                            R.drawable.ic_favorite
+                        )
+                    )
+                }
+                else {
+                    ibFavorite.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            requireContext(),
+                            R.drawable.ic_heart
+                        )
+                    )
+                }
+
+                isFavorite = !isFavorite
+            }
         }
 
     }
