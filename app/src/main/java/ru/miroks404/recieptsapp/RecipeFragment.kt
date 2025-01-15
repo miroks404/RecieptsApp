@@ -1,5 +1,6 @@
 package ru.miroks404.recieptsapp
 
+import android.content.Context
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
@@ -10,8 +11,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
 import androidx.core.content.ContextCompat
+import androidx.core.content.edit
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.divider.MaterialDividerItemDecoration
+import ru.miroks404.recieptsapp.Constants.KEY_SP
 import ru.miroks404.recieptsapp.data.STUB
 import ru.miroks404.recieptsapp.databinding.FragmentRecipeBinding
 import ru.miroks404.recieptsapp.domain.Recipe
@@ -19,12 +22,12 @@ import ru.miroks404.recieptsapp.domain.Recipe
 
 class RecipeFragment : Fragment() {
 
+    private var isFavorite = false
+
     private var _binding: FragmentRecipeBinding? = null
     private val binding
         get() = _binding
             ?: throw IllegalStateException("Binding for FragmentRecipesListBinding must be not null")
-
-    private var isFavorite = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -74,12 +77,34 @@ class RecipeFragment : Fragment() {
 
             tvPortionQuantity.text = "1"
 
-            ibFavorite.setImageDrawable(
-                ContextCompat.getDrawable(
-                    requireContext(),
-                    R.drawable.ic_favorite
+            val favoritesSet = getFavorites()
+
+            if (favoritesSet.isNotEmpty()) {
+                if (recipe.id.toString() in favoritesSet) {
+                    ibFavorite.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            requireContext(), R.drawable.ic_heart
+                        )
+                    )
+                    isFavorite = true
+                } else {
+                    ibFavorite.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            requireContext(),
+                            R.drawable.ic_favorite
+                        )
+                    )
+                    isFavorite = false
+                }
+            } else {
+                ibFavorite.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        requireContext(),
+                        R.drawable.ic_favorite
+                    )
                 )
-            )
+                isFavorite = false
+            }
 
             ibFavorite.setOnClickListener {
                 if (isFavorite) {
@@ -89,20 +114,23 @@ class RecipeFragment : Fragment() {
                             R.drawable.ic_favorite
                         )
                     )
-                }
-                else {
+                    favoritesSet.remove(recipe.id.toString())
+                    saveFavorites(favoritesSet.toMutableSet())
+                } else {
                     ibFavorite.setImageDrawable(
                         ContextCompat.getDrawable(
                             requireContext(),
                             R.drawable.ic_heart
                         )
                     )
+                    favoritesSet.add(recipe.id.toString())
+                    saveFavorites(favoritesSet.toMutableSet())
                 }
 
                 isFavorite = !isFavorite
+
             }
         }
-
     }
 
     private fun initRecycler(recipeId: Int) {
@@ -140,5 +168,18 @@ class RecipeFragment : Fragment() {
             }
         })
     }
+
+    private fun saveFavorites(setOfId: MutableSet<String>) {
+        val sharedPrefs = activity?.getPreferences(Context.MODE_PRIVATE)
+        sharedPrefs?.edit {
+            putStringSet(KEY_SP, setOfId)
+            Log.d("!!!", "saveFavorites: correct save")
+            apply()
+        }
+    }
+
+    private fun getFavorites(): HashSet<String> =
+        activity?.getPreferences(Context.MODE_PRIVATE)?.getStringSet(KEY_SP, null)?.toHashSet()
+            ?: HashSet()
 
 }
