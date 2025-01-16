@@ -24,8 +24,8 @@
 
             <ImageButton
                 android:id="@+id/ibFavorite"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="@dimen/favorite_icon_size"
+                android:layout_height="@dimen/favorite_icon_size"
                 android:layout_margin="@dimen/main_space_16"
                 android:background="@null"
                 android:foreground="?attr/selectableItemBackground"
@@ -95,7 +95,10 @@
                 android:layout_height="30dp"
                 android:layout_marginTop="@dimen/main_space_6"
                 android:max="5"
-                android:min="1" />
+                android:min="1"
+                android:paddingStart="0dp"
+                android:paddingEnd="0dp"
+                android:thumbOffset="1dp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvIngredients"

@@ -69,9 +69,6 @@ class RecipeFragment : Fragment() {
 
             tvRecipe.text = recipe.title
 
-            seekBar.setPadding(0, 0, 0, 0)
-            seekBar.thumbOffset = -1
-
             tvPortionQuantity.text = "1"
 
             ibFavorite.setImageDrawable(
@@ -82,22 +79,7 @@ class RecipeFragment : Fragment() {
             )
 
             ibFavorite.setOnClickListener {
-                if (isFavorite) {
-                    ibFavorite.setImageDrawable(
-                        ContextCompat.getDrawable(
-                            requireContext(),
-                            R.drawable.ic_favorite
-                        )
-                    )
-                }
-                else {
-                    ibFavorite.setImageDrawable(
-                        ContextCompat.getDrawable(
-                            requireContext(),
-                            R.drawable.ic_heart
-                        )
-                    )
-                }
+                ibFavorite.setImageResource(if (isFavorite) R.drawable.ic_favorite else R.drawable.ic_heart)
 
                 isFavorite = !isFavorite
             }
