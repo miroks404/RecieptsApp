@@ -24,6 +24,8 @@ class RecipeFragment : Fragment() {
         get() = _binding
             ?: throw IllegalStateException("Binding for FragmentRecipesListBinding must be not null")
 
+    private var isFavorite = false
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -62,14 +64,27 @@ class RecipeFragment : Fragment() {
             null
         }
 
-        binding.ivRecipe.setImageDrawable(drawable)
+        with(binding) {
+            ivRecipe.setImageDrawable(drawable)
 
-        binding.tvRecipe.text = recipe.title
+            tvRecipe.text = recipe.title
 
-        binding.seekBar.setPadding(0, 0, 0, 0)
-        binding.seekBar.thumbOffset = -1
+            tvPortionQuantity.text = "1"
 
-        binding.tvPortionQuantity.text = "1"
+            ibFavorite.setImageDrawable(
+                ContextCompat.getDrawable(
+                    requireContext(),
+                    R.drawable.ic_favorite
+                )
+            )
+
+            ibFavorite.setOnClickListener {
+                ibFavorite.setImageResource(if (isFavorite) R.drawable.ic_favorite else R.drawable.ic_heart)
+
+                isFavorite = !isFavorite
+            }
+        }
+
     }
 
     private fun initRecycler(recipeId: Int) {
