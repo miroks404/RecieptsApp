@@ -19,7 +19,7 @@
         <item name="android:drawablePadding">@dimen/main_space_12</item>
         <item name="android:backgroundTint">@color/favoriteButtonColor</item>
     </style>
-    
+
     <style name="header_text">
         <item name="android:fontFamily">@font/montserrat_alternates_semi_bold</item>
         <item name="android:textSize">@dimen/text_size_20</item>
@@ -46,10 +46,16 @@
         <item name="android:textSize">@dimen/text_size_16</item>
         <item name="android:textColor">@color/portions_color</item>
     </style>
-    
+
     <style name="seek_bar">
         <item name="android:thumb">@drawable/shape_seekbar_thumb</item>
         <item name="android:progressDrawable">@drawable/shape_seekbar_progress</item>
+    </style>
+
+    <style name="empty_text">
+        <item name="android:fontFamily">@font/montserrat_medium</item>
+        <item name="android:textSize">@dimen/text_size_16</item>
+        <item name="android:textColor">@color/recipe_text_color</item>
     </style>
 
 </resources>

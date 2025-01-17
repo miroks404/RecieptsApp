@@ -282,4 +282,17 @@ object STUB {
 
     fun getRecipeById(recipeId: Int) : Recipe = burgerRecipes[recipeId]
 
+    fun getRecipesByIds(ids: Set<String>) : List<Recipe> {
+        val result = mutableListOf<Recipe>()
+        val intIds = ids.map { it.toInt() }.sorted()
+
+        intIds.forEach { id ->
+            burgerRecipes.forEach {
+                if (id == it.id) result.add(it)
+            }
+        }
+
+        return result.toList()
+    }
+
 }
