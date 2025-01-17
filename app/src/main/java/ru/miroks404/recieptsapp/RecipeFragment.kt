@@ -22,12 +22,12 @@ import ru.miroks404.recieptsapp.domain.Recipe
 
 class RecipeFragment : Fragment() {
 
-    private var isFavorite = false
-
     private var _binding: FragmentRecipeBinding? = null
     private val binding
         get() = _binding
             ?: throw IllegalStateException("Binding for FragmentRecipesListBinding must be not null")
+
+    private var isFavorite = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -126,11 +126,13 @@ class RecipeFragment : Fragment() {
                     favoritesSet.add(recipe.id.toString())
                     saveFavorites(favoritesSet.toMutableSet())
                 }
+                ibFavorite.setImageResource(if (isFavorite) R.drawable.ic_favorite else R.drawable.ic_heart)
 
                 isFavorite = !isFavorite
 
             }
         }
+
     }
 
     private fun initRecycler(recipeId: Int) {
