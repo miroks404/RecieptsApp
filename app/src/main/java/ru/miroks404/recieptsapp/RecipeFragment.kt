@@ -72,61 +72,31 @@ class RecipeFragment : Fragment() {
 
             tvRecipe.text = recipe.title
 
-            seekBar.setPadding(0, 0, 0, 0)
-            seekBar.thumbOffset = -1
-
-            tvPortionQuantity.text = "1"
-
             val favoritesSet = getFavorites()
 
-            if (favoritesSet.isNotEmpty()) {
+            ibFavorite.setImageResource(
                 if (recipe.id.toString() in favoritesSet) {
-                    ibFavorite.setImageDrawable(
-                        ContextCompat.getDrawable(
-                            requireContext(), R.drawable.ic_heart
-                        )
-                    )
                     isFavorite = true
+                    R.drawable.ic_heart
                 } else {
-                    ibFavorite.setImageDrawable(
-                        ContextCompat.getDrawable(
-                            requireContext(),
-                            R.drawable.ic_favorite
-                        )
-                    )
                     isFavorite = false
+                    R.drawable.ic_favorite
                 }
-            } else {
-                ibFavorite.setImageDrawable(
-                    ContextCompat.getDrawable(
-                        requireContext(),
-                        R.drawable.ic_favorite
-                    )
-                )
-                isFavorite = false
-            }
+            )
 
             ibFavorite.setOnClickListener {
-                if (isFavorite) {
-                    ibFavorite.setImageDrawable(
-                        ContextCompat.getDrawable(
-                            requireContext(),
-                            R.drawable.ic_favorite
-                        )
-                    )
-                    favoritesSet.remove(recipe.id.toString())
-                    saveFavorites(favoritesSet.toMutableSet())
-                } else {
-                    ibFavorite.setImageDrawable(
-                        ContextCompat.getDrawable(
-                            requireContext(),
-                            R.drawable.ic_heart
-                        )
-                    )
-                    favoritesSet.add(recipe.id.toString())
-                    saveFavorites(favoritesSet.toMutableSet())
-                }
-                ibFavorite.setImageResource(if (isFavorite) R.drawable.ic_favorite else R.drawable.ic_heart)
+
+                ibFavorite.setImageResource(
+                    if (isFavorite) {
+                        favoritesSet.remove(recipe.id.toString())
+                        saveFavorites(favoritesSet.toMutableSet())
+                        R.drawable.ic_favorite
+                    } else {
+                        favoritesSet.add(recipe.id.toString())
+                        saveFavorites(favoritesSet.toMutableSet())
+                        R.drawable.ic_heart
+                    }
+                )
 
                 isFavorite = !isFavorite
 
@@ -180,8 +150,9 @@ class RecipeFragment : Fragment() {
         }
     }
 
-    private fun getFavorites(): HashSet<String> =
-        activity?.getPreferences(Context.MODE_PRIVATE)?.getStringSet(KEY_SP, null)?.toHashSet()
-            ?: HashSet()
+    private fun getFavorites(): HashSet<String> {
+        val sharedPrefs = activity?.getPreferences(Context.MODE_PRIVATE)
+        return sharedPrefs?.getStringSet(KEY_SP, null)?.toHashSet() ?: HashSet()
+    }
 
 }

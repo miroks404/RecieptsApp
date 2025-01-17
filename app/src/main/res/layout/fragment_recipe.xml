@@ -81,10 +81,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/main_space_6"
+                    android:text="@string/portions_quantity_text"
                     app:layout_constraintBottom_toBottomOf="@+id/tvPortions"
                     app:layout_constraintStart_toEndOf="@+id/tvPortions"
-                    app:layout_constraintTop_toTopOf="@+id/tvPortions"
-                    tools:text="3" />
+                    app:layout_constraintTop_toTopOf="@+id/tvPortions" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -98,7 +98,7 @@
                 android:min="1"
                 android:paddingStart="0dp"
                 android:paddingEnd="0dp"
-                android:thumbOffset="1dp" />
+                android:thumbOffset="0dp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvIngredients"
