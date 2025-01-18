@@ -86,17 +86,17 @@ class RecipeFragment : Fragment() {
 
             ibFavorite.setOnClickListener {
 
-                ibFavorite.setImageResource(
-                    if (isFavorite) {
-                        favoritesSet.remove(recipe.id.toString())
-                        saveFavorites(favoritesSet.toMutableSet())
-                        R.drawable.ic_favorite
-                    } else {
-                        favoritesSet.add(recipe.id.toString())
-                        saveFavorites(favoritesSet.toMutableSet())
-                        R.drawable.ic_heart
-                    }
-                )
+                if (isFavorite) {
+                    ibFavorite.setImageResource(R.drawable.ic_favorite)
+
+                    favoritesSet.remove(recipe.id.toString())
+                    saveFavorites(favoritesSet.toMutableSet())
+                } else {
+                    ibFavorite.setImageResource(R.drawable.ic_heart)
+
+                    favoritesSet.add(recipe.id.toString())
+                    saveFavorites(favoritesSet.toMutableSet())
+                }
 
                 isFavorite = !isFavorite
 

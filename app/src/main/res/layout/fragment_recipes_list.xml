@@ -12,12 +12,14 @@
         android:layout_height="@dimen/categories_image_height_size">
 
         <ImageView
+            android:id="@+id/ivCategory"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
             android:src="@drawable/bcg_recipes_list" />
 
         <TextView
+            android:id="@+id/tvCategory"
             style="@style/ButtonTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
