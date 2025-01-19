@@ -1,8 +1,8 @@
 package ru.miroks404.recieptsapp.data
 
-import ru.miroks404.recieptsapp.domain.Category
-import ru.miroks404.recieptsapp.domain.Ingredient
-import ru.miroks404.recieptsapp.domain.Recipe
+import ru.miroks404.recieptsapp.model.Category
+import ru.miroks404.recieptsapp.model.Ingredient
+import ru.miroks404.recieptsapp.model.Recipe
 
 object STUB {
 

@@ -8,7 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ru.miroks404.recieptsapp.databinding.ItemRecipeBinding
-import ru.miroks404.recieptsapp.domain.Recipe
+import ru.miroks404.recieptsapp.model.Recipe
 
 class FavoritesAdapter(private val dataSet: List<Recipe>) :
     RecyclerView.Adapter<FavoritesAdapter.ViewHolder>() {

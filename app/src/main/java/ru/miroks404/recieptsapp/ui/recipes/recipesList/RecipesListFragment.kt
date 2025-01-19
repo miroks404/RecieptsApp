@@ -16,7 +16,7 @@ import ru.miroks404.recieptsapp.R
 import ru.miroks404.recieptsapp.data.STUB
 import ru.miroks404.recieptsapp.data.STUB.getRecipeById
 import ru.miroks404.recieptsapp.databinding.FragmentRecipesListBinding
-import ru.miroks404.recieptsapp.domain.Category
+import ru.miroks404.recieptsapp.model.Category
 import ru.miroks404.recieptsapp.ui.recipes.recipe.RecipeFragment
 
 class RecipesListFragment: Fragment(R.layout.fragment_recipes_list) {

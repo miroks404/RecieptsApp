@@ -19,7 +19,7 @@ import ru.miroks404.recieptsapp.Constants.KEY_SP
 import ru.miroks404.recieptsapp.R
 import ru.miroks404.recieptsapp.data.STUB
 import ru.miroks404.recieptsapp.databinding.FragmentRecipeBinding
-import ru.miroks404.recieptsapp.domain.Recipe
+import ru.miroks404.recieptsapp.model.Recipe
 
 
 class RecipeFragment : Fragment() {
