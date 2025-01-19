@@ -1,7 +1,9 @@
 package ru.miroks404.recieptsapp
 
+import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -45,6 +47,8 @@ class RecipesListFragment: Fragment(R.layout.fragment_recipes_list) {
 
         initRecycler()
 
+        category?.let { initUI(it) }
+
     }
 
     override fun onDestroyView() {
@@ -60,6 +64,20 @@ class RecipesListFragment: Fragment(R.layout.fragment_recipes_list) {
                 openRecipeByRecipeId(recipeId)
             }
         })
+    }
+
+    private fun initUI(category: Category) {
+        val drawable = try {
+            Drawable.createFromStream(view?.context?.assets?.open(category.imageUrl), null)
+        } catch (e: Exception) {
+            Log.d("Not found", "Image not found: ${category.imageUrl}")
+            null
+        }
+
+        binding.ivCategory.setImageDrawable(drawable)
+
+        binding.tvCategory.text = category.title
+
     }
 
     private fun openRecipeByRecipeId(recipeId: Int) {
