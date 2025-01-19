@@ -1,4 +1,4 @@
-package ru.miroks404.recieptsapp
+package ru.miroks404.recieptsapp.ui.recipes.favorites
 
 import android.graphics.drawable.Drawable
 import android.util.Log
@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.miroks404.recieptsapp.databinding.ItemRecipeBinding
 import ru.miroks404.recieptsapp.domain.Recipe
 
-class RecipesListAdapter(private val dataSet: List<Recipe>) :
-    RecyclerView.Adapter<RecipesListAdapter.ViewHolder>() {
+class FavoritesAdapter(private val dataSet: List<Recipe>) :
+    RecyclerView.Adapter<FavoritesAdapter.ViewHolder>() {
 
     interface OnItemClickListener {
         fun onItemClick(recipeId: Int)

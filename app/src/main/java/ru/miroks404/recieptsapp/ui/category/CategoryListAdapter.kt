@@ -1,4 +1,4 @@
-package ru.miroks404.recieptsapp
+package ru.miroks404.recieptsapp.ui.category
 
 import android.graphics.drawable.Drawable
 import android.util.Log

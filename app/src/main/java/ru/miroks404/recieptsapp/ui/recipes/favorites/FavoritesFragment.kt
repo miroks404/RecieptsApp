@@ -1,7 +1,6 @@
-package ru.miroks404.recieptsapp
+package ru.miroks404.recieptsapp.ui.recipes.favorites
 
 import android.content.Context
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,11 +9,13 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
+import ru.miroks404.recieptsapp.Constants
 import ru.miroks404.recieptsapp.Constants.KEY_SP
+import ru.miroks404.recieptsapp.R
 import ru.miroks404.recieptsapp.data.STUB
 import ru.miroks404.recieptsapp.data.STUB.getRecipeById
 import ru.miroks404.recieptsapp.databinding.FragmentFavoritesBinding
-import ru.miroks404.recieptsapp.domain.Category
+import ru.miroks404.recieptsapp.ui.recipes.recipe.RecipeFragment
 
 class FavoritesFragment : Fragment() {
 
