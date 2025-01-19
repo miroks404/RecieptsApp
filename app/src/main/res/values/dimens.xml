@@ -20,4 +20,6 @@
 
     <dimen name="text_size_20">20sp</dimen>
 
+    <dimen name="empty_text_horizontal_padding">50dp</dimen>
+
 </resources>
