@@ -8,6 +8,7 @@ class RecipeViewModel : ViewModel() {
     data class RecipeUIState(
         val recipe: Recipe? = null,
         val isFavorite: Boolean = false,
+        val stateOfSeekbar: Int = 1,
     )
 
 }
