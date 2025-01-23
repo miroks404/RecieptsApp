@@ -1,4 +1,4 @@
-package ru.miroks404.recieptsapp
+package ru.miroks404.recieptsapp.ui.recipes.recipe
 
 import android.content.Context
 import android.graphics.drawable.Drawable
@@ -14,10 +14,12 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.edit
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.divider.MaterialDividerItemDecoration
+import ru.miroks404.recieptsapp.Constants
 import ru.miroks404.recieptsapp.Constants.KEY_SP
+import ru.miroks404.recieptsapp.R
 import ru.miroks404.recieptsapp.data.STUB
 import ru.miroks404.recieptsapp.databinding.FragmentRecipeBinding
-import ru.miroks404.recieptsapp.domain.Recipe
+import ru.miroks404.recieptsapp.model.Recipe
 
 
 class RecipeFragment : Fragment() {

@@ -1,4 +1,4 @@
-package ru.miroks404.recieptsapp.domain
+package ru.miroks404.recieptsapp.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

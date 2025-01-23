@@ -1,4 +1,4 @@
-package ru.miroks404.recieptsapp
+package ru.miroks404.recieptsapp.ui.recipes.recipe
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

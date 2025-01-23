@@ -1,4 +1,4 @@
-package ru.miroks404.recieptsapp
+package ru.miroks404.recieptsapp.ui.category
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,8 +8,11 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
+import ru.miroks404.recieptsapp.Constants
+import ru.miroks404.recieptsapp.R
 import ru.miroks404.recieptsapp.data.STUB
 import ru.miroks404.recieptsapp.databinding.FragmentListCategoriesBinding
+import ru.miroks404.recieptsapp.ui.recipes.recipesList.RecipesListFragment
 
 class CategoriesListFragment : Fragment(R.layout.fragment_list_categories) {
 

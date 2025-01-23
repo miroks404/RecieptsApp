@@ -1,11 +1,11 @@
-package ru.miroks404.recieptsapp
+package ru.miroks404.recieptsapp.ui.recipes.recipe
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ru.miroks404.recieptsapp.databinding.ItemIngredientBinding
-import ru.miroks404.recieptsapp.domain.Ingredient
+import ru.miroks404.recieptsapp.model.Ingredient
 import java.math.BigDecimal
 import java.math.RoundingMode
 

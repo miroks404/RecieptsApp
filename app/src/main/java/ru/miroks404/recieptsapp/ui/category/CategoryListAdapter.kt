@@ -1,4 +1,4 @@
-package ru.miroks404.recieptsapp
+package ru.miroks404.recieptsapp.ui.category
 
 import android.graphics.drawable.Drawable
 import android.util.Log
@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import ru.miroks404.recieptsapp.domain.Category
+import ru.miroks404.recieptsapp.model.Category
 import ru.miroks404.recieptsapp.databinding.ItemCategoryBinding
 
 class CategoryListAdapter(private val dataSet: List<Category>) :

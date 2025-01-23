@@ -1,11 +1,14 @@
-package ru.miroks404.recieptsapp
+package ru.miroks404.recieptsapp.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
+import ru.miroks404.recieptsapp.R
 import ru.miroks404.recieptsapp.databinding.ActivityMainBinding
+import ru.miroks404.recieptsapp.ui.category.CategoriesListFragment
+import ru.miroks404.recieptsapp.ui.recipes.favorites.FavoritesFragment
 
 class MainActivity : AppCompatActivity() {
 
