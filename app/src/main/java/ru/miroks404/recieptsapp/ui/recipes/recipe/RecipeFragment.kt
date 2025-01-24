@@ -12,6 +12,10 @@ import android.view.ViewGroup
 import android.widget.SeekBar
 import androidx.core.content.ContextCompat
 import androidx.core.content.edit
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import ru.miroks404.recieptsapp.Constants
@@ -28,6 +32,8 @@ class RecipeFragment : Fragment() {
     private val binding
         get() = _binding
             ?: throw IllegalStateException("Binding for FragmentRecipesListBinding must be not null")
+
+    private val viewModel: RecipeViewModel by viewModels()
 
     private var isFavorite = false
 
@@ -47,6 +53,10 @@ class RecipeFragment : Fragment() {
             requireArguments().getParcelable(Constants.KEY_RECIPE, Recipe::class.java)
         } else {
             requireArguments().getParcelable(Constants.KEY_RECIPE)
+        }
+
+        viewModel.uiState.observe(viewLifecycleOwner) {
+            Log.d("!!!", "onViewCreated: isFavorite: ${it.isFavorite}")
         }
 
         recipe?.let { initUI(it) }
