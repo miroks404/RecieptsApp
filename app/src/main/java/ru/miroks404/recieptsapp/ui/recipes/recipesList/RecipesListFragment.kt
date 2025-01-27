@@ -14,7 +14,6 @@ import androidx.fragment.app.replace
 import ru.miroks404.recieptsapp.Constants
 import ru.miroks404.recieptsapp.R
 import ru.miroks404.recieptsapp.data.STUB
-import ru.miroks404.recieptsapp.data.STUB.getRecipeById
 import ru.miroks404.recieptsapp.databinding.FragmentRecipesListBinding
 import ru.miroks404.recieptsapp.model.Category
 import ru.miroks404.recieptsapp.ui.recipes.recipe.RecipeFragment
@@ -84,10 +83,7 @@ class RecipesListFragment: Fragment(R.layout.fragment_recipes_list) {
     }
 
     private fun openRecipeByRecipeId(recipeId: Int) {
-
-        val recipe = getRecipeById(recipeId)
-
-        val bundle = bundleOf(Constants.KEY_RECIPE to recipe)
+        val bundle = bundleOf(Constants.KEY_RECIPE to recipeId)
 
         fragmentManager?.commit {
             setReorderingAllowed(true)
