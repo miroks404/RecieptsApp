@@ -13,7 +13,6 @@ import ru.miroks404.recieptsapp.Constants
 import ru.miroks404.recieptsapp.Constants.KEY_SP
 import ru.miroks404.recieptsapp.R
 import ru.miroks404.recieptsapp.data.STUB
-import ru.miroks404.recieptsapp.data.STUB.getRecipeById
 import ru.miroks404.recieptsapp.databinding.FragmentFavoritesBinding
 import ru.miroks404.recieptsapp.ui.recipes.recipe.RecipeFragment
 
@@ -63,10 +62,7 @@ class FavoritesFragment : Fragment() {
     }
 
     private fun openRecipeByRecipeId(recipeId: Int) {
-
-        val recipe = getRecipeById(recipeId)
-
-        val bundle = bundleOf(Constants.KEY_RECIPE to recipe)
+        val bundle = bundleOf(Constants.KEY_RECIPE to recipeId)
 
         fragmentManager?.commit {
             setReorderingAllowed(true)
@@ -75,7 +71,7 @@ class FavoritesFragment : Fragment() {
     }
 
     private fun getFavorites(): HashSet<String> {
-        val sharedPrefs = activity?.getPreferences(Context.MODE_PRIVATE)
+        val sharedPrefs = activity?.getSharedPreferences(KEY_SP ,Context.MODE_PRIVATE)
         return sharedPrefs?.getStringSet(KEY_SP, null)?.toHashSet() ?: HashSet()
     }
 
