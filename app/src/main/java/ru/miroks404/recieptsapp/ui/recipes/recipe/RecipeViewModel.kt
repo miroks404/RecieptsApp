@@ -15,23 +15,20 @@ import ru.miroks404.recieptsapp.model.Recipe
 class RecipeViewModel(private val application: Application) : AndroidViewModel(application) {
 
     data class RecipeUIState(
-        val recipe: Recipe?,
-        val isFavorite: Boolean,
-        val stateOfSeekbar: Int,
-        val recipeImage: Drawable?,
+        val recipe: Recipe? = null,
+        val isFavorite: Boolean = false,
+        val stateOfSeekbar: Int = 1,
+        val recipeImage: Drawable? = null,
     )
 
-    private val _uiState = MutableLiveData<RecipeUIState>()
+    private val _uiState = MutableLiveData(RecipeUIState())
     val uiState: LiveData<RecipeUIState>
         get() = _uiState
 
     fun loadRecipe(recipeId: Int) {
-        _uiState.value = RecipeUIState(null, false, 1, null)
-        _uiState.value = _uiState.value?.copy(recipe = STUB.getRecipeById(recipeId))
         _uiState.value = _uiState.value?.copy(
-            isFavorite = recipeId.toString() in getFavorites()
-        )
-        _uiState.value = _uiState.value?.copy(
+            recipe = STUB.getRecipeById(recipeId),
+            isFavorite = recipeId.toString() in getFavorites(),
             recipeImage =
             try {
                 Drawable.createFromStream(
@@ -41,6 +38,23 @@ class RecipeViewModel(private val application: Application) : AndroidViewModel(a
             } catch (e: Exception) {
                 Log.d("Not found", "Image not found: ${_uiState.value?.recipe?.imageUrl}")
                 null
+            }
+        )
+
+    }
+
+    fun onFavoritesClicked() {
+        val favoritesSet = getFavorites().toMutableSet()
+        _uiState.value = _uiState.value?.copy(
+            isFavorite =
+            if (_uiState.value?.isFavorite == true) {
+                favoritesSet.remove(_uiState.value?.recipe?.id?.toString())
+                saveFavorites(favoritesSet)
+                false
+            } else {
+                favoritesSet.add(_uiState.value?.recipe?.id?.toString() ?: "")
+                saveFavorites(favoritesSet)
+                true
             }
         )
     }
@@ -61,22 +75,6 @@ class RecipeViewModel(private val application: Application) : AndroidViewModel(a
             Log.d("!!!", "saveFavorites: correct save")
             apply()
         }
-    }
-
-    fun onFavoritesClicked() {
-        val favoritesSet = getFavorites().toMutableSet()
-        _uiState.value = _uiState.value?.copy(
-            isFavorite =
-            if (_uiState.value?.isFavorite == true) {
-                favoritesSet.remove(_uiState.value?.recipe?.id?.toString())
-                saveFavorites(favoritesSet)
-                false
-            } else {
-                favoritesSet.add(_uiState.value?.recipe?.id?.toString() ?: "")
-                saveFavorites(favoritesSet)
-                true
-            }
-        )
     }
 
 }
