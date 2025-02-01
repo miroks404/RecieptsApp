@@ -1,8 +1,6 @@
 package ru.miroks404.recieptsapp.ui.recipes.recipe
 
-import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -43,11 +41,7 @@ class RecipeFragment : Fragment() {
 
         recipeId?.let {
             viewModel.loadRecipe(it)
-        }
-
-        initUI()
-
-        recipeId?.let {
+            initUI()
             initRecycler(it)
         }
 
@@ -62,18 +56,9 @@ class RecipeFragment : Fragment() {
 
         viewModel.uiState.observe(viewLifecycleOwner) {
             state ->
-            val drawable = try {
-                Drawable.createFromStream(
-                    this.context?.assets?.open(state.recipe?.imageUrl ?: ""),
-                    null
-                )
-            } catch (e: Exception) {
-                Log.d("Not found", "Image not found: ${state.recipe?.imageUrl}")
-                null
-            }
 
             with(binding) {
-                ivRecipe.setImageDrawable(drawable)
+                ivRecipe.setImageDrawable(state.recipeImage)
 
                 tvRecipe.text = state.recipe?.title
 
@@ -82,12 +67,13 @@ class RecipeFragment : Fragment() {
                     else R.drawable.ic_favorite
                 )
 
-                ibFavorite.setOnClickListener {
-
-                    viewModel.onFavoritesClicked()
-
-                }
             }
+        }
+
+        binding.ibFavorite.setOnClickListener {
+
+            viewModel.onFavoritesClicked()
+
         }
 
     }
