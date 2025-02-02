@@ -1,12 +1,12 @@
 package ru.miroks404.recieptsapp.ui.recipes.recipe
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.divider.MaterialDividerItemDecoration
@@ -42,7 +42,6 @@ class RecipeFragment : Fragment() {
         recipeId?.let {
             viewModel.loadRecipe(it)
             initUI()
-            initRecycler(it)
         }
 
     }
@@ -54,20 +53,44 @@ class RecipeFragment : Fragment() {
 
     private fun initUI() {
 
-        viewModel.uiState.observe(viewLifecycleOwner) {
-            state ->
+        val ingredientsAdapter = viewModel.uiState.value?.recipe?.id?.let {
+            STUB.getRecipeById(
+                it
+            ).ingredients
+        }?.let { IngredientsAdapter(it) }
+        binding.rvIngredients.adapter = ingredientsAdapter
 
-            with(binding) {
-                ivRecipe.setImageDrawable(state.recipeImage)
+        val methodsAdapter = viewModel.uiState.value?.recipe?.id?.let {
+            STUB.getRecipeById(
+                it
+            ).method
+        }?.let { MethodsAdapter(it) }
+        binding.rvMethod.adapter = methodsAdapter
 
-                tvRecipe.text = state.recipe?.title
+        binding.ivRecipe.setImageDrawable(viewModel.uiState.value?.recipeImage)
 
-                ibFavorite.setImageResource(
-                    if (state.isFavorite) R.drawable.ic_heart
-                    else R.drawable.ic_favorite
-                )
+        binding.tvRecipe.text = viewModel.uiState.value?.recipe?.title
 
-            }
+        viewModel.uiState.observe(viewLifecycleOwner) { state ->
+
+            binding.ibFavorite.setImageResource(
+                if (state.isFavorite) R.drawable.ic_heart
+                else R.drawable.ic_favorite
+            )
+
+            binding.seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+                override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                    viewModel.updateStateOfSeekbar(progress)
+                    ingredientsAdapter?.updateIngredients(progress)
+                    binding.tvPortionQuantity.text = progress.toString()
+                }
+
+                override fun onStartTrackingTouch(seekBar: SeekBar?) {
+                }
+
+                override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                }
+            })
         }
 
         binding.ibFavorite.setOnClickListener {
@@ -76,18 +99,9 @@ class RecipeFragment : Fragment() {
 
         }
 
-    }
-
-    private fun initRecycler(recipeId: Int) {
-        val ingredientsAdapter = IngredientsAdapter(STUB.getRecipeById(recipeId).ingredients)
-        binding.rvIngredients.adapter = ingredientsAdapter
-
-        val methodsAdapter = MethodsAdapter(STUB.getRecipeById(recipeId).method)
-        binding.rvMethod.adapter = methodsAdapter
-
         val divider =
             MaterialDividerItemDecoration(
-                this.requireContext(),
+                this@RecipeFragment.requireContext(),
                 LinearLayoutManager.VERTICAL
             ).apply {
                 isLastItemDecorated = false
@@ -99,19 +113,6 @@ class RecipeFragment : Fragment() {
 
         binding.rvIngredients.addItemDecoration(divider)
         binding.rvMethod.addItemDecoration(divider)
-
-        binding.seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                ingredientsAdapter.updateIngredients(progress)
-                binding.tvPortionQuantity.text = progress.toString()
-            }
-
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {
-            }
-
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {
-            }
-        })
     }
 
 }
