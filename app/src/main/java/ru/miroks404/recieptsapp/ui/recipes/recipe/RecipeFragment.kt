@@ -81,7 +81,6 @@ class RecipeFragment : Fragment() {
             binding.seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
                 override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                     viewModel.updateStateOfSeekbar(progress)
-                    ingredientsAdapter?.updateIngredients(progress)
                     binding.tvPortionQuantity.text = progress.toString()
                 }
 
@@ -91,6 +90,8 @@ class RecipeFragment : Fragment() {
                 override fun onStopTrackingTouch(seekBar: SeekBar?) {
                 }
             })
+
+            ingredientsAdapter?.updateIngredients(state.stateOfSeekbar)
         }
 
         binding.ibFavorite.setOnClickListener {
