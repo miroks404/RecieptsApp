@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import ru.miroks404.recieptsapp.Constants
 import ru.miroks404.recieptsapp.R
-import ru.miroks404.recieptsapp.data.STUB
 import ru.miroks404.recieptsapp.databinding.FragmentRecipeBinding
 
 
@@ -53,18 +52,10 @@ class RecipeFragment : Fragment() {
 
     private fun initUI() {
 
-        val ingredientsAdapter = viewModel.uiState.value?.recipe?.id?.let {
-            STUB.getRecipeById(
-                it
-            ).ingredients
-        }?.let { IngredientsAdapter(it) }
+        val ingredientsAdapter = IngredientsAdapter(listOf())
         binding.rvIngredients.adapter = ingredientsAdapter
 
-        val methodsAdapter = viewModel.uiState.value?.recipe?.id?.let {
-            STUB.getRecipeById(
-                it
-            ).method
-        }?.let { MethodsAdapter(it) }
+        val methodsAdapter = MethodsAdapter(listOf())
         binding.rvMethod.adapter = methodsAdapter
 
         binding.ivRecipe.setImageDrawable(viewModel.uiState.value?.recipeImage)
@@ -78,20 +69,14 @@ class RecipeFragment : Fragment() {
                 else R.drawable.ic_favorite
             )
 
-            binding.seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-                override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                    viewModel.updateStateOfSeekbar(progress)
-                    binding.tvPortionQuantity.text = progress.toString()
-                }
+            binding.tvPortionQuantity.text = state.stateOfSeekbar.toString()
 
-                override fun onStartTrackingTouch(seekBar: SeekBar?) {
-                }
+            state.recipe?.let {
+                ingredientsAdapter.dataSet = it.ingredients
+                methodsAdapter.dataSet = it.method
+            }
 
-                override fun onStopTrackingTouch(seekBar: SeekBar?) {
-                }
-            })
-
-            ingredientsAdapter?.updateIngredients(state.stateOfSeekbar)
+            ingredientsAdapter.updateIngredients(state.stateOfSeekbar)
         }
 
         binding.ibFavorite.setOnClickListener {
@@ -99,6 +84,18 @@ class RecipeFragment : Fragment() {
             viewModel.onFavoritesClicked()
 
         }
+
+        binding.seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                viewModel.updateStateOfSeekbar(progress)
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+            }
+        })
 
         val divider =
             MaterialDividerItemDecoration(
