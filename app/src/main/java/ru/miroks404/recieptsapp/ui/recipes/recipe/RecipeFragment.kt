@@ -58,11 +58,11 @@ class RecipeFragment : Fragment() {
         val methodsAdapter = MethodsAdapter(listOf())
         binding.rvMethod.adapter = methodsAdapter
 
-        binding.ivRecipe.setImageDrawable(viewModel.uiState.value?.recipeImage)
-
-        binding.tvRecipe.text = viewModel.uiState.value?.recipe?.title
-
         viewModel.uiState.observe(viewLifecycleOwner) { state ->
+
+            binding.ivRecipe.setImageDrawable(state.recipeImage)
+
+            binding.tvRecipe.text = state.recipe?.title
 
             binding.ibFavorite.setImageResource(
                 if (state.isFavorite) R.drawable.ic_heart
@@ -73,7 +73,9 @@ class RecipeFragment : Fragment() {
 
             state.recipe?.let {
                 ingredientsAdapter.dataSet = it.ingredients
+                ingredientsAdapter.notifyDataSetChanged()
                 methodsAdapter.dataSet = it.method
+                methodsAdapter.notifyDataSetChanged()
             }
 
             ingredientsAdapter.updateIngredients(state.stateOfSeekbar)
