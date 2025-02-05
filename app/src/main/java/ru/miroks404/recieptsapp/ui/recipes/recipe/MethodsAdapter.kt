@@ -6,7 +6,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ru.miroks404.recieptsapp.databinding.ItemMethodBinding
 
-class MethodsAdapter(private val dataSet: List<String>) :
+class MethodsAdapter(private var dataSet: List<String>) :
     RecyclerView.Adapter<MethodsAdapter.ViewHolder>() {
 
     class ViewHolder(binding: ItemMethodBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -30,5 +30,10 @@ class MethodsAdapter(private val dataSet: List<String>) :
     }
 
     override fun getItemCount(): Int = dataSet.size
+
+    fun setNewDataSet(dataSet: List<String>) {
+        this.dataSet = dataSet
+        notifyDataSetChanged()
+    }
 
 }

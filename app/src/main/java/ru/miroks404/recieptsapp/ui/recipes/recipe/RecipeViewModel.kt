@@ -29,10 +29,13 @@ class RecipeViewModel(private val application: Application) : AndroidViewModel(a
         _uiState.value = _uiState.value?.copy(
             recipe = STUB.getRecipeById(recipeId),
             isFavorite = recipeId.toString() in getFavorites(),
+        )
+
+        _uiState.value = _uiState.value?.copy(
             recipeImage =
             try {
                 Drawable.createFromStream(
-                    this.application.assets?.open(_uiState.value?.recipe?.imageUrl ?: ""),
+                    application.assets?.open(_uiState.value?.recipe?.imageUrl ?: ""),
                     null
                 )
             } catch (e: Exception) {
@@ -57,6 +60,10 @@ class RecipeViewModel(private val application: Application) : AndroidViewModel(a
                 true
             }
         )
+    }
+
+    fun updateStateOfSeekbar(newState: Int) {
+        _uiState.value = _uiState.value?.copy(stateOfSeekbar = newState)
     }
 
     private fun getFavorites(): HashSet<String> {
