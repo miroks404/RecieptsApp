@@ -8,9 +8,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ru.miroks404.recieptsapp.databinding.ItemRecipeBinding
+import ru.miroks404.recieptsapp.model.Category
 import ru.miroks404.recieptsapp.model.Recipe
 
-class RecipesListAdapter(private val dataSet: List<Recipe>) :
+class RecipesListAdapter(private var dataSet: List<Recipe>) :
     RecyclerView.Adapter<RecipesListAdapter.ViewHolder>() {
 
     interface OnItemClickListener {
@@ -59,5 +60,10 @@ class RecipesListAdapter(private val dataSet: List<Recipe>) :
     }
 
     override fun getItemCount(): Int = dataSet.size
+
+    fun setNewDataSet(dataSet: List<Recipe>) {
+        this.dataSet = dataSet
+        notifyDataSetChanged()
+    }
 
 }

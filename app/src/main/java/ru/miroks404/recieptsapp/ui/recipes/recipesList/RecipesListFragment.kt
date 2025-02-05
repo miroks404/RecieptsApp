@@ -1,9 +1,6 @@
 package ru.miroks404.recieptsapp.ui.recipes.recipesList
 
-import android.graphics.drawable.Drawable
-import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,11 +8,10 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
+import androidx.fragment.app.viewModels
 import ru.miroks404.recieptsapp.Constants
 import ru.miroks404.recieptsapp.R
-import ru.miroks404.recieptsapp.data.STUB
 import ru.miroks404.recieptsapp.databinding.FragmentRecipesListBinding
-import ru.miroks404.recieptsapp.model.Category
 import ru.miroks404.recieptsapp.ui.recipes.recipe.RecipeFragment
 
 class RecipesListFragment: Fragment(R.layout.fragment_recipes_list) {
@@ -24,7 +20,7 @@ class RecipesListFragment: Fragment(R.layout.fragment_recipes_list) {
     private val binding
         get() = _binding ?: throw IllegalStateException("Binding for FragmentRecipesListBinding must be not null")
 
-    private var categoryId: Int? = null
+    private val viewModel: RecipesListViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,17 +35,12 @@ class RecipesListFragment: Fragment(R.layout.fragment_recipes_list) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val category = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            requireArguments().getParcelable(Constants.KEY_CATEGORY, Category::class.java)
-        } else {
-            requireArguments().getParcelable(Constants.KEY_CATEGORY)
+        val categoryId = arguments?.getInt(Constants.KEY_CATEGORY)
+
+        categoryId?.let {
+            viewModel.loadRecipes(it)
+            initUI()
         }
-
-        categoryId = category?.id
-
-        initRecycler()
-
-        category?.let { initUI(it) }
 
     }
 
@@ -58,27 +49,28 @@ class RecipesListFragment: Fragment(R.layout.fragment_recipes_list) {
         _binding = null
     }
 
-    private fun initRecycler() {
-        val recipesListAdapter = RecipesListAdapter(STUB.getRecipesByCategoryId(categoryId ?: -1))
+    private fun initUI() {
+        val recipesListAdapter = RecipesListAdapter(listOf())
+
         binding.rvRecipesList.adapter = recipesListAdapter
+
+        viewModel.uiState.observe(viewLifecycleOwner) { state ->
+
+            binding.ivCategory.setImageDrawable(state.categoryImage)
+
+            binding.tvCategory.text = state.category?.title
+
+            state.recipesList?.let {
+                recipesListAdapter.setNewDataSet(it)
+            }
+
+        }
+
         recipesListAdapter.setOnItemClickListener(object : RecipesListAdapter.OnItemClickListener {
             override fun onItemClick(recipeId: Int) {
                 openRecipeByRecipeId(recipeId)
             }
         })
-    }
-
-    private fun initUI(category: Category) {
-        val drawable = try {
-            Drawable.createFromStream(view?.context?.assets?.open(category.imageUrl), null)
-        } catch (e: Exception) {
-            Log.d("Not found", "Image not found: ${category.imageUrl}")
-            null
-        }
-
-        binding.ivCategory.setImageDrawable(drawable)
-
-        binding.tvCategory.text = category.title
 
     }
 

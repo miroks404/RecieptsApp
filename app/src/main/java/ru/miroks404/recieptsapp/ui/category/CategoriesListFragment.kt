@@ -52,10 +52,9 @@ class CategoriesListFragment : Fragment(R.layout.fragment_list_categories) {
     }
 
     private fun openRecipesByCategoryId(categoryId: Int) {
-        val category = STUB.getCategories()[categoryId]
 
         val bundle = bundleOf(
-            Constants.KEY_CATEGORY to category,
+            Constants.KEY_CATEGORY to categoryId,
         )
 
         fragmentManager?.commit {
