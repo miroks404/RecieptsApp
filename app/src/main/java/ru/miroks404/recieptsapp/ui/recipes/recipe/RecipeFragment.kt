@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
+import android.widget.SeekBar.OnSeekBarChangeListener
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -14,6 +15,20 @@ import ru.miroks404.recieptsapp.Constants
 import ru.miroks404.recieptsapp.R
 import ru.miroks404.recieptsapp.databinding.FragmentRecipeBinding
 
+private class PortionSeekbarListener(private val onChangeIngredients: (Int) -> Unit) : OnSeekBarChangeListener {
+    override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+        onChangeIngredients(progress)
+    }
+
+    override fun onStartTrackingTouch(seekBar: SeekBar?) {
+
+    }
+
+    override fun onStopTrackingTouch(seekBar: SeekBar?) {
+
+    }
+
+}
 
 class RecipeFragment : Fragment() {
 
@@ -85,16 +100,8 @@ class RecipeFragment : Fragment() {
 
         }
 
-        binding.seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                viewModel.updateStateOfSeekbar(progress)
-            }
-
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {
-            }
-
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {
-            }
+        binding.seekBar.setOnSeekBarChangeListener(PortionSeekbarListener {
+            viewModel.updateStateOfSeekbar(it)
         })
 
         val divider =
