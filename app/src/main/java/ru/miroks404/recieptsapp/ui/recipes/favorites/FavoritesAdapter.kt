@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.miroks404.recieptsapp.databinding.ItemRecipeBinding
 import ru.miroks404.recieptsapp.model.Recipe
 
-class FavoritesAdapter(private val dataSet: List<Recipe>) :
+class FavoritesAdapter(private var dataSet: List<Recipe>) :
     RecyclerView.Adapter<FavoritesAdapter.ViewHolder>() {
 
     interface OnItemClickListener {
@@ -59,5 +59,10 @@ class FavoritesAdapter(private val dataSet: List<Recipe>) :
     }
 
     override fun getItemCount(): Int = dataSet.size
+
+    fun setNewDataSet(dataSet: List<Recipe>) {
+        this.dataSet = dataSet
+        notifyDataSetChanged()
+    }
 
 }

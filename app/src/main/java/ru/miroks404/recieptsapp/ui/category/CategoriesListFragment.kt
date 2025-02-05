@@ -8,18 +8,20 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
+import androidx.fragment.app.viewModels
 import ru.miroks404.recieptsapp.Constants
 import ru.miroks404.recieptsapp.R
-import ru.miroks404.recieptsapp.data.STUB
 import ru.miroks404.recieptsapp.databinding.FragmentListCategoriesBinding
 import ru.miroks404.recieptsapp.ui.recipes.recipesList.RecipesListFragment
 
-class CategoriesListFragment : Fragment(R.layout.fragment_list_categories) {
+class CategoriesListFragment : Fragment() {
 
     private var _binding: FragmentListCategoriesBinding? = null
     private val binding
         get() = _binding
             ?: throw IllegalStateException("Binding for ActivityMainBinding must be not null")
+
+    private val viewModel: CategoriesListViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,7 +35,10 @@ class CategoriesListFragment : Fragment(R.layout.fragment_list_categories) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initRecycler()
+
+        viewModel.loadCategories()
+
+        initUI()
     }
 
     override fun onDestroyView() {
@@ -41,9 +46,17 @@ class CategoriesListFragment : Fragment(R.layout.fragment_list_categories) {
         _binding = null
     }
 
-    private fun initRecycler() {
-        val categoriesAdapter = CategoryListAdapter(STUB.getCategories())
+    private fun initUI() {
+        val categoriesAdapter = CategoryListAdapter(listOf())
+
         binding.rvCategories.adapter = categoriesAdapter
+
+        viewModel.uiState.observe(viewLifecycleOwner) { state ->
+
+            categoriesAdapter.setNewDataSet(state.listOfCategories)
+
+        }
+
         categoriesAdapter.setOnItemClickListener(object : CategoryListAdapter.OnItemClickListener {
             override fun onItemClick(id: Int) {
                 openRecipesByCategoryId(id)
