@@ -72,10 +72,8 @@ class RecipeFragment : Fragment() {
             binding.tvPortionQuantity.text = state.stateOfSeekbar.toString()
 
             state.recipe?.let {
-                ingredientsAdapter.dataSet = it.ingredients
-                ingredientsAdapter.notifyDataSetChanged()
-                methodsAdapter.dataSet = it.method
-                methodsAdapter.notifyDataSetChanged()
+                ingredientsAdapter.setNewDataSet(it.ingredients)
+                methodsAdapter.setNewDataSet(it.method)
             }
 
             ingredientsAdapter.updateIngredients(state.stateOfSeekbar)
