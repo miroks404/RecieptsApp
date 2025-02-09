@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "ru.miroks404.recieptsapp"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "ru.miroks404.recieptsapp"
@@ -61,4 +61,9 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation("androidx.fragment:fragment-ktx:1.8.5")
+    // Jetpack Compose integration
+    implementation(libs.androidx.navigation.compose)
+    // Views/Fragments integration
+    implementation(libs.androidx.navigation.fragment)
+    implementation(libs.androidx.navigation.ui)
 }
