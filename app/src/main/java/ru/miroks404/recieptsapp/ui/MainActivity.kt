@@ -2,13 +2,9 @@ package ru.miroks404.recieptsapp.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.add
-import androidx.fragment.app.commit
-import androidx.fragment.app.replace
+import androidx.navigation.findNavController
 import ru.miroks404.recieptsapp.R
 import ru.miroks404.recieptsapp.databinding.ActivityMainBinding
-import ru.miroks404.recieptsapp.ui.category.CategoriesListFragment
-import ru.miroks404.recieptsapp.ui.recipes.favorites.FavoritesFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -22,30 +18,15 @@ class MainActivity : AppCompatActivity() {
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        if (savedInstanceState == null) {
-            supportFragmentManager.commit {
-                setReorderingAllowed(true)
-                add<CategoriesListFragment>(R.id.containerMain)
-            }
-        }
-
         binding.bCategory.setOnClickListener {
 
-            supportFragmentManager.commit {
-                setReorderingAllowed(true)
-                replace<CategoriesListFragment>(R.id.containerMain)
-                addToBackStack(null)
-            }
+            findNavController(R.id.nav_host_fragment_container).navigate(R.id.categoriesListFragment)
 
         }
 
         binding.bFavorites.setOnClickListener {
 
-            supportFragmentManager.commit {
-                setReorderingAllowed(true)
-                replace<FavoritesFragment>(R.id.containerMain)
-                addToBackStack(null)
-            }
+            findNavController(R.id.nav_host_fragment_container).navigate(R.id.favoritesFragment)
 
         }
     }

@@ -6,13 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.commit
-import androidx.fragment.app.replace
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import ru.miroks404.recieptsapp.Constants
 import ru.miroks404.recieptsapp.R
 import ru.miroks404.recieptsapp.databinding.FragmentListCategoriesBinding
-import ru.miroks404.recieptsapp.ui.recipes.recipesList.RecipesListFragment
 
 class CategoriesListFragment : Fragment() {
 
@@ -70,10 +68,7 @@ class CategoriesListFragment : Fragment() {
             Constants.KEY_CATEGORY to categoryId,
         )
 
-        fragmentManager?.commit {
-            setReorderingAllowed(true)
-            replace<RecipesListFragment>(R.id.containerMain, args = bundle)
-        }
+        findNavController().navigate(R.id.recipesListFragment, bundle)
     }
 
 }
