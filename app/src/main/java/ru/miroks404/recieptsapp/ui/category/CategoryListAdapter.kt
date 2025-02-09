@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.miroks404.recieptsapp.model.Category
 import ru.miroks404.recieptsapp.databinding.ItemCategoryBinding
 
-class CategoryListAdapter(private val dataSet: List<Category>) :
+class CategoryListAdapter(private var dataSet: List<Category>) :
     RecyclerView.Adapter<CategoryListAdapter.ViewHolder>() {
 
     interface OnItemClickListener {
@@ -61,5 +61,10 @@ class CategoryListAdapter(private val dataSet: List<Category>) :
     }
 
     override fun getItemCount(): Int = dataSet.size
+
+    fun setNewDataSet(dataSet: List<Category>) {
+        this.dataSet = dataSet
+        notifyDataSetChanged()
+    }
 
 }
