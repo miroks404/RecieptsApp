@@ -68,7 +68,7 @@ class CategoriesListFragment : Fragment() {
             Constants.KEY_CATEGORY to categoryId,
         )
 
-        findNavController().navigate(R.id.recipesListFragment, bundle)
+        findNavController().navigate(R.id.action_categoriesListFragment_to_recipesListFragment, bundle)
     }
 
 }
