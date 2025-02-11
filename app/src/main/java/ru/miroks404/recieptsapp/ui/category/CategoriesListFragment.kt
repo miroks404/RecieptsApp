@@ -4,12 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import ru.miroks404.recieptsapp.Constants
-import ru.miroks404.recieptsapp.R
 import ru.miroks404.recieptsapp.databinding.FragmentListCategoriesBinding
 
 class CategoriesListFragment : Fragment() {
@@ -24,7 +21,7 @@ class CategoriesListFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentListCategoriesBinding.inflate(layoutInflater)
 
@@ -63,12 +60,11 @@ class CategoriesListFragment : Fragment() {
     }
 
     private fun openRecipesByCategoryId(categoryId: Int) {
-
-        val bundle = bundleOf(
-            Constants.KEY_CATEGORY to categoryId,
+        findNavController().navigate(
+            CategoriesListFragmentDirections.actionCategoriesListFragmentToRecipesListFragment(
+                categoryId
+            )
         )
-
-        findNavController().navigate(R.id.action_categoriesListFragment_to_recipesListFragment, bundle)
     }
 
 }
