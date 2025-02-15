@@ -4,12 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import ru.miroks404.recieptsapp.Constants
-import ru.miroks404.recieptsapp.R
 import ru.miroks404.recieptsapp.databinding.FragmentFavoritesBinding
 
 class FavoritesFragment : Fragment() {
@@ -69,9 +66,11 @@ class FavoritesFragment : Fragment() {
     }
 
     private fun openRecipeByRecipeId(recipeId: Int) {
-        val bundle = bundleOf(Constants.KEY_RECIPE to recipeId)
-
-        findNavController().navigate(R.id.action_favoritesFragment_to_recipeFragment, bundle)
+        findNavController().navigate(
+            FavoritesFragmentDirections.actionFavoritesFragmentToRecipeFragment(
+                recipeId
+            )
+        )
     }
 
 }
