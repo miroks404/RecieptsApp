@@ -274,12 +274,16 @@ object STUB {
         )
     )
 
+    private val mapOfRecipes = mapOf(
+        0 to burgerRecipes
+    )
+
     fun getCategories(): List<Category> = listOfCategories
 
     fun getCategoryById(categoryId: Int): Category = listOfCategories[categoryId]
 
     fun getRecipesByCategoryId(categoryId: Int) : List<Recipe> {
-        return if (categoryId == 0) burgerRecipes else listOf()
+        return mapOfRecipes[categoryId] ?: throw IllegalArgumentException()
     }
 
     fun getRecipeById(recipeId: Int) : Recipe = burgerRecipes[recipeId]
