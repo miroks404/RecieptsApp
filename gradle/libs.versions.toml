@@ -7,12 +7,13 @@ junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 lifecycleRuntimeKtx = "2.8.7"
 activityCompose = "1.10.0"
-composeBom = "2025.01.01"
+composeBom = "2025.02.00"
 appcompat = "1.7.0"
 material = "1.12.0"
 activity = "1.10.0"
 constraintlayout = "2.2.0"
-navigation = "2.8.6"
+navigation = "2.8.7"
+gsonVer = "2.12.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -36,6 +37,7 @@ androidx-constraintlayout = { group = "androidx.constraintlayout", name = "const
 androidx-navigation-fragment = { module = "androidx.navigation:navigation-fragment", version.ref = "navigation" }
 androidx-navigation-ui = { module = "androidx.navigation:navigation-ui", version.ref = "navigation" }
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation" }
+gson = { module = "com.google.code.gson:gson", version.ref = "gsonVer" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
