@@ -30,9 +30,9 @@ class MainActivity : AppCompatActivity() {
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val idCategories = mutableMapOf<String, Int>()
-
         val thread = Thread {
+            val idCategories = mutableMapOf<String, Int>()
+
             val url = URL("https://recipes.androidsprint.ru/api/category")
             val connection = url.openConnection() as HttpURLConnection
             connection.connect()
@@ -50,20 +50,19 @@ class MainActivity : AppCompatActivity() {
             listOfCategories.forEach {
                 idCategories[it.title] = it.id
             }
-        }
-        thread.start()
 
-        thread.join()
-        idCategories.forEach {
-            threadPool.submit {
-                val url = URL("https://recipes.androidsprint.ru/api/recipe/${it.value}")
-                val connection = url.openConnection() as HttpURLConnection
-                connection.connect()
+            idCategories.forEach {
+                threadPool.submit {
+                    val url = URL("https://recipes.androidsprint.ru/api/recipe/${it.value}")
+                    val connection = url.openConnection() as HttpURLConnection
+                    connection.connect()
 
-                val categoriesJsonString = connection.inputStream.bufferedReader().readText()
-                Log.d("!!!", categoriesJsonString)
+                    val categoriesJsonString = connection.inputStream.bufferedReader().readText()
+                    Log.d("!!!", categoriesJsonString)
+                }
             }
         }
+        thread.start()
 
         Log.d("!!!", "Метод onCreate() выполняется на потоке: ${Thread.currentThread().name}")
     }
