@@ -12,6 +12,7 @@ import ru.miroks404.recieptsapp.databinding.ActivityMainBinding
 import ru.miroks404.recieptsapp.model.Category
 import java.net.HttpURLConnection
 import java.net.URL
+import java.util.concurrent.Executors
 
 class MainActivity : AppCompatActivity() {
 
@@ -22,12 +23,16 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var navController: NavController
 
+    private val threadPool = Executors.newFixedThreadPool(10)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val thread = Thread {
+            val idCategories = mutableMapOf<String, Int>()
+
             val url = URL("https://recipes.androidsprint.ru/api/category")
             val connection = url.openConnection() as HttpURLConnection
             connection.connect()
@@ -43,7 +48,18 @@ class MainActivity : AppCompatActivity() {
             val listOfCategories = gson.fromJson<List<Category>>(categoriesJsonString, listType)
 
             listOfCategories.forEach {
-                Log.d("category", "$it")
+                idCategories[it.title] = it.id
+            }
+
+            idCategories.forEach {
+                threadPool.submit {
+                    val url = URL("https://recipes.androidsprint.ru/api/recipe/${it.value}")
+                    val connection = url.openConnection() as HttpURLConnection
+                    connection.connect()
+
+                    val categoriesJsonString = connection.inputStream.bufferedReader().readText()
+                    Log.d("!!!", categoriesJsonString)
+                }
             }
         }
         thread.start()
