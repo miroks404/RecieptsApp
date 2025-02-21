@@ -7,11 +7,12 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.logging.HttpLoggingInterceptor
 import ru.miroks404.recieptsapp.R
 import ru.miroks404.recieptsapp.databinding.ActivityMainBinding
 import ru.miroks404.recieptsapp.model.Category
-import java.net.HttpURLConnection
-import java.net.URL
 import java.util.concurrent.Executors
 
 class MainActivity : AppCompatActivity() {
@@ -31,21 +32,32 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val thread = Thread {
+            val listOfCategories = mutableListOf<Category>()
             val idCategories = mutableMapOf<String, Int>()
 
-            val url = URL("https://recipes.androidsprint.ru/api/category")
-            val connection = url.openConnection() as HttpURLConnection
-            connection.connect()
+            val loggingInterceptor =
+                HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
 
-            val categoriesJsonString = connection.inputStream.bufferedReader().readText()
-
-            Log.d("!!!", "Выполняю запрос на потоке: ${Thread.currentThread().name}")
-            Log.d("!!!", categoriesJsonString)
+            val client = OkHttpClient.Builder().addInterceptor(loggingInterceptor).build()
+            val requestCategories = Request.Builder()
+                .url("https://recipes.androidsprint.ru/api/category")
+                .build()
 
             val gson = Gson()
 
-            val listType = object : TypeToken<List<Category>>() {}.type
-            val listOfCategories = gson.fromJson<List<Category>>(categoriesJsonString, listType)
+            client.newCall(requestCategories).execute().use { response ->
+                Log.d("!!!", "Выполняю запрос на потоке: ${Thread.currentThread().name}")
+                val listType = object : TypeToken<List<Category>>() {}.type
+                response.body?.string()?.let {
+                    Log.d("!!!", it)
+                    listOfCategories.addAll(
+                        gson.fromJson<List<Category>>(
+                            it,
+                            listType
+                        )
+                    )
+                }
+            }
 
             listOfCategories.forEach {
                 idCategories[it.title] = it.id
@@ -53,12 +65,12 @@ class MainActivity : AppCompatActivity() {
 
             idCategories.forEach {
                 threadPool.submit {
-                    val url = URL("https://recipes.androidsprint.ru/api/recipe/${it.value}")
-                    val connection = url.openConnection() as HttpURLConnection
-                    connection.connect()
-
-                    val categoriesJsonString = connection.inputStream.bufferedReader().readText()
-                    Log.d("!!!", categoriesJsonString)
+                    val requestRecipes = Request.Builder()
+                        .url("https://recipes.androidsprint.ru/api/category/${it.value}/recipes")
+                        .build()
+                    client.newCall(requestRecipes).execute().use { response ->
+                        response.body?.string()?.let { it1 -> Log.d("!!!", it1) }
+                    }
                 }
             }
         }
