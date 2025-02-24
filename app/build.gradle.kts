@@ -61,7 +61,7 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-    implementation("androidx.fragment:fragment-ktx:1.8.6")
+    implementation(libs.androidx.fragment.ktx)
     // Jetpack Compose integration
     implementation(libs.androidx.navigation.compose)
     // Views/Fragments integration
@@ -70,8 +70,8 @@ dependencies {
     implementation (libs.gson)
 
     // define a BOM and its version
-    implementation(platform("com.squareup.okhttp3:okhttp-bom:4.12.0"))
+    implementation(platform(libs.okhttp.bom))
     // define any required OkHttp artifacts without version
-    implementation("com.squareup.okhttp3:okhttp")
-    implementation("com.squareup.okhttp3:logging-interceptor")
+    implementation(libs.okhttp)
+    implementation(libs.okhttp3.logging.interceptor)
 }
