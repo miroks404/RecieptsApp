@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -15,7 +16,8 @@ import com.google.android.material.divider.MaterialDividerItemDecoration
 import ru.miroks404.recieptsapp.R
 import ru.miroks404.recieptsapp.databinding.FragmentRecipeBinding
 
-private class PortionSeekbarListener(private val onChangeIngredients: (Int) -> Unit) : OnSeekBarChangeListener {
+private class PortionSeekbarListener(private val onChangeIngredients: (Int) -> Unit) :
+    OnSeekBarChangeListener {
     override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
         onChangeIngredients(progress)
     }
@@ -75,23 +77,35 @@ class RecipeFragment : Fragment() {
 
         viewModel.uiState.observe(viewLifecycleOwner) { state ->
 
-            binding.ivRecipe.setImageDrawable(state.recipeImage)
+            when (state.recipeState) {
+                RecipeViewModel.RecipeState.DEFAULT -> {
 
-            binding.tvRecipe.text = state.recipe?.title
+                    binding.ivRecipe.setImageDrawable(state.recipeImage)
 
-            binding.ibFavorite.setImageResource(
-                if (state.isFavorite) R.drawable.ic_heart
-                else R.drawable.ic_favorite
-            )
+                    binding.tvRecipe.text = state.recipe?.title
 
-            binding.tvPortionQuantity.text = state.stateOfSeekbar.toString()
+                    binding.ibFavorite.setImageResource(
+                        if (state.isFavorite) R.drawable.ic_heart
+                        else R.drawable.ic_favorite
+                    )
 
-            state.recipe?.let {
-                ingredientsAdapter.setNewDataSet(it.ingredients)
-                methodsAdapter.setNewDataSet(it.method)
+                    binding.tvPortionQuantity.text = state.stateOfSeekbar.toString()
+
+                    state.recipe?.let {
+                        ingredientsAdapter.setNewDataSet(it.ingredients)
+                        methodsAdapter.setNewDataSet(it.method)
+                    }
+
+                    ingredientsAdapter.updateIngredients(state.stateOfSeekbar)
+
+                }
+                RecipeViewModel.RecipeState.ERROR -> Toast.makeText(
+                    this@RecipeFragment.requireContext(),
+                    R.string.data_error_text,
+                    Toast.LENGTH_SHORT
+                ).show()
             }
 
-            ingredientsAdapter.updateIngredients(state.stateOfSeekbar)
         }
 
         binding.ibFavorite.setOnClickListener {

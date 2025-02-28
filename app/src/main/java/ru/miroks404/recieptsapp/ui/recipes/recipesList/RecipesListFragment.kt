@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -54,12 +55,18 @@ class RecipesListFragment : Fragment(R.layout.fragment_recipes_list) {
 
         viewModel.uiState.observe(viewLifecycleOwner) { state ->
 
-            binding.ivCategory.setImageDrawable(state.categoryImage)
+            when (state.recipesListState) {
+                RecipesListViewModel.RecipesListState.DEFAULT -> {
+                    binding.ivCategory.setImageDrawable(state.categoryImage)
+                    binding.tvCategory.text = state.category?.title
+                    recipesListAdapter.setNewDataSet(state.recipesList)
+                }
 
-            binding.tvCategory.text = state.category?.title
-
-            state.recipesList?.let {
-                recipesListAdapter.setNewDataSet(it)
+                RecipesListViewModel.RecipesListState.ERROR -> Toast.makeText(
+                    this@RecipesListFragment.requireContext(),
+                    R.string.data_error_text,
+                    Toast.LENGTH_SHORT
+                ).show()
             }
 
         }

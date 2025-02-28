@@ -74,4 +74,7 @@ dependencies {
     // define any required OkHttp artifacts without version
     implementation(libs.okhttp)
     implementation(libs.okhttp3.logging.interceptor)
+
+    implementation (libs.retrofit)
+    implementation(libs.retrofit.gson.converter)
 }
