@@ -9,28 +9,46 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import ru.miroks404.recieptsapp.Constants.KEY_SP
-import ru.miroks404.recieptsapp.data.STUB
+import ru.miroks404.recieptsapp.data.RecipesRepository
 import ru.miroks404.recieptsapp.model.Recipe
 
 class RecipeViewModel(private val application: Application) : AndroidViewModel(application) {
+
+    enum class RecipeState {
+        DEFAULT,
+        ERROR
+    }
 
     data class RecipeUIState(
         val recipe: Recipe? = null,
         val isFavorite: Boolean = false,
         val stateOfSeekbar: Int = 1,
         val recipeImage: Drawable? = null,
+        val recipeState: RecipeState = RecipeState.DEFAULT,
     )
 
     private val _uiState = MutableLiveData(RecipeUIState())
     val uiState: LiveData<RecipeUIState>
         get() = _uiState
 
+    private val data = RecipesRepository()
+
     fun loadRecipe(recipeId: Int) {
         _uiState.value = _uiState.value?.copy(
-            recipe = STUB.getRecipeById(recipeId),
             isFavorite = recipeId.toString() in getFavorites(),
         )
-
+        data.getRecipeByRecipeId(recipeId) {
+            if (it != null) {
+                _uiState.postValue(_uiState.value?.copy(recipe = it))
+            } else {
+                _uiState.postValue(
+                    _uiState.value?.copy(
+                        recipe = null,
+                        recipeState = RecipeState.ERROR
+                    )
+                )
+            }
+        }
         _uiState.value = _uiState.value?.copy(
             recipeImage =
             try {
@@ -43,7 +61,6 @@ class RecipeViewModel(private val application: Application) : AndroidViewModel(a
                 null
             }
         )
-
     }
 
     fun onFavoritesClicked() {
