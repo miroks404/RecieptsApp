@@ -1,16 +1,18 @@
 package ru.miroks404.recieptsapp.ui.category
 
-import android.graphics.drawable.Drawable
-import android.util.Log
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import ru.miroks404.recieptsapp.Constants
+import ru.miroks404.recieptsapp.R
 import ru.miroks404.recieptsapp.model.Category
 import ru.miroks404.recieptsapp.databinding.ItemCategoryBinding
 
-class CategoryListAdapter(private var dataSet: List<Category>) :
+class CategoryListAdapter(private var dataSet: List<Category>, private val context: Context) :
     RecyclerView.Adapter<CategoryListAdapter.ViewHolder>() {
 
     interface OnItemClickListener {
@@ -44,14 +46,12 @@ class CategoryListAdapter(private var dataSet: List<Category>) :
         holder.titleTextView.text = category.title
         holder.descriptionTextView.text = category.description
 
-        val drawable = try {
-            Drawable.createFromStream(holder.itemView.context.assets.open(category.imageUrl), null)
-        } catch (e: Exception) {
-            Log.d("Not found", "Image not found: ${category.imageUrl}")
-            null
-        }
+        Glide.with(context)
+            .load("${Constants.BASE_URL}${Constants.CATALOG_URL}${category.imageUrl}")
+            .placeholder(R.drawable.img_placeholder)
+            .error(R.drawable.img_error)
+            .into(holder.imageView)
 
-        holder.imageView.setImageDrawable(drawable)
         holder.imageView.contentDescription = category.title
 
         holder.itemView.setOnClickListener {

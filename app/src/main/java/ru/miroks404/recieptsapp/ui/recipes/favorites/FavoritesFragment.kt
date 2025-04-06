@@ -45,7 +45,7 @@ class FavoritesFragment : Fragment() {
     }
 
     private fun initUI() {
-        val favoritesAdapter = FavoritesAdapter(listOf())
+        val favoritesAdapter = FavoritesAdapter(listOf(), this@FavoritesFragment.requireContext())
 
         binding.rvRecipesList.adapter = favoritesAdapter
 

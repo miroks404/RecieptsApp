@@ -1,17 +1,18 @@
 package ru.miroks404.recieptsapp.ui.recipes.recipesList
 
-import android.graphics.drawable.Drawable
-import android.util.Log
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import ru.miroks404.recieptsapp.Constants
+import ru.miroks404.recieptsapp.R
 import ru.miroks404.recieptsapp.databinding.ItemRecipeBinding
-import ru.miroks404.recieptsapp.model.Category
 import ru.miroks404.recieptsapp.model.Recipe
 
-class RecipesListAdapter(private var dataSet: List<Recipe>) :
+class RecipesListAdapter(private var dataSet: List<Recipe>, private val context: Context) :
     RecyclerView.Adapter<RecipesListAdapter.ViewHolder>() {
 
     interface OnItemClickListener {
@@ -43,14 +44,12 @@ class RecipesListAdapter(private var dataSet: List<Recipe>) :
 
         holder.titleTextView.text = recipe.title
 
-        val drawable = try {
-            Drawable.createFromStream(holder.itemView.context.assets.open(recipe.imageUrl), null)
-        } catch (e: Exception) {
-            Log.d("Not found", "Image not found: ${recipe.imageUrl}")
-            null
-        }
+        Glide.with(context)
+            .load("${Constants.BASE_URL}${Constants.CATALOG_URL}${recipe.imageUrl}")
+            .placeholder(R.drawable.img_placeholder)
+            .error(R.drawable.img_error)
+            .into(holder.imageView)
 
-        holder.imageView.setImageDrawable(drawable)
         holder.imageView.contentDescription = recipe.title
 
         holder.itemView.setOnClickListener {

@@ -28,18 +28,28 @@ class FavoritesViewModel(private val application: Application) : AndroidViewMode
     private val data = RecipesRepository()
 
     fun loadRecipes() {
-        data.getAllRecipesByIds(loadFavoritesRecipes().joinToString { "," }) {
-            if (it != null) {
-                _uiState.postValue(_uiState.value?.copy(favoritesRecipes = it))
-            } else {
-                _uiState.postValue(
-                    _uiState.value?.copy(
-                        favoritesRecipes = null,
-                        favoritesState = FavoritesState.ERROR
+        val favoritesRecipes = loadFavoritesRecipes().joinToString(",")
+        if (favoritesRecipes.isNotEmpty()) {
+            data.getAllRecipesByIds(loadFavoritesRecipes().joinToString(",")) {
+                if (it != null) {
+                    _uiState.postValue(_uiState.value?.copy(favoritesRecipes = it))
+                } else {
+                    _uiState.postValue(
+                        _uiState.value?.copy(
+                            favoritesRecipes = null,
+                            favoritesState = FavoritesState.ERROR
+                        )
                     )
-                )
+                }
             }
+        } else {
+            _uiState.postValue(
+                uiState.value?.copy(
+                    favoritesRecipes = null
+                )
+            )
         }
+
 
     }
 

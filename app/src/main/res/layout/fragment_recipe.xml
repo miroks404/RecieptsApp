@@ -20,7 +20,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                android:src="@drawable/bcg_recipe" />
+                android:src="@drawable/img_placeholder" />
 
             <ImageButton
                 android:id="@+id/ibFavorite"

@@ -2,7 +2,6 @@ package ru.miroks404.recieptsapp.ui.recipes.recipe
 
 import android.app.Application
 import android.content.Context
-import android.graphics.drawable.Drawable
 import android.util.Log
 import androidx.core.content.edit
 import androidx.lifecycle.AndroidViewModel
@@ -23,7 +22,7 @@ class RecipeViewModel(private val application: Application) : AndroidViewModel(a
         val recipe: Recipe? = null,
         val isFavorite: Boolean = false,
         val stateOfSeekbar: Int = 1,
-        val recipeImage: Drawable? = null,
+        val recipeImage: String? = null,
         val recipeState: RecipeState = RecipeState.DEFAULT,
     )
 
@@ -39,7 +38,7 @@ class RecipeViewModel(private val application: Application) : AndroidViewModel(a
         )
         data.getRecipeByRecipeId(recipeId) {
             if (it != null) {
-                _uiState.postValue(_uiState.value?.copy(recipe = it))
+                _uiState.postValue(_uiState.value?.copy(recipe = it, recipeImage = it.imageUrl))
             } else {
                 _uiState.postValue(
                     _uiState.value?.copy(
@@ -49,18 +48,6 @@ class RecipeViewModel(private val application: Application) : AndroidViewModel(a
                 )
             }
         }
-        _uiState.value = _uiState.value?.copy(
-            recipeImage =
-            try {
-                Drawable.createFromStream(
-                    application.assets?.open(_uiState.value?.recipe?.imageUrl ?: ""),
-                    null
-                )
-            } catch (e: Exception) {
-                Log.d("Not found", "Image not found: ${_uiState.value?.recipe?.imageUrl}")
-                null
-            }
-        )
     }
 
     fun onFavoritesClicked() {
