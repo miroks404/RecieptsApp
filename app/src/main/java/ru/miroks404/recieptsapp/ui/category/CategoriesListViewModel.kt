@@ -16,6 +16,7 @@ class CategoriesListViewModel : ViewModel() {
     data class CategoriesListUIState(
         val listOfCategories: List<Category> = listOf(),
         val categoriesListState: CategoriesListState = CategoriesListState.DEFAULT,
+        val imageUrl: String? = null,
     )
 
     private val _uiState = MutableLiveData(CategoriesListUIState())

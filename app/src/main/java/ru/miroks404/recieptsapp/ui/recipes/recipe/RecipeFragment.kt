@@ -1,6 +1,7 @@
 package ru.miroks404.recieptsapp.ui.recipes.recipe
 
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +13,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.google.android.material.divider.MaterialDividerItemDecoration
+import ru.miroks404.recieptsapp.Constants
 import ru.miroks404.recieptsapp.R
 import ru.miroks404.recieptsapp.databinding.FragmentRecipeBinding
 
@@ -80,7 +83,13 @@ class RecipeFragment : Fragment() {
             when (state.recipeState) {
                 RecipeViewModel.RecipeState.DEFAULT -> {
 
-                    binding.ivRecipe.setImageDrawable(state.recipeImage)
+                    if (state.recipeImage != null) {
+                        Glide.with(this@RecipeFragment.requireContext())
+                            .load("${Constants.IMAGE_URL}${state.recipeImage}")
+                            .placeholder(R.drawable.img_placeholder)
+                            .error(R.drawable.img_error)
+                            .into(binding.ivRecipe)
+                    }
 
                     binding.tvRecipe.text = state.recipe?.title
 
@@ -99,6 +108,7 @@ class RecipeFragment : Fragment() {
                     ingredientsAdapter.updateIngredients(state.stateOfSeekbar)
 
                 }
+
                 RecipeViewModel.RecipeState.ERROR -> Toast.makeText(
                     this@RecipeFragment.requireContext(),
                     R.string.data_error_text,
@@ -132,6 +142,15 @@ class RecipeFragment : Fragment() {
 
         binding.rvIngredients.addItemDecoration(divider)
         binding.rvMethod.addItemDecoration(divider)
+
+        val widthOfScreen = resources.displayMetrics.widthPixels
+        val marginRightInDp = 16
+        val marginRightInPix = TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP,
+            marginRightInDp.toFloat(),
+            resources.displayMetrics
+        ).toInt()
+        binding.tvRecipe.maxWidth = widthOfScreen - marginRightInPix * 2
     }
 
 }

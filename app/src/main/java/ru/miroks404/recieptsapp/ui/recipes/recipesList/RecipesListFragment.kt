@@ -49,7 +49,7 @@ class RecipesListFragment : Fragment(R.layout.fragment_recipes_list) {
     }
 
     private fun initUI() {
-        val recipesListAdapter = RecipesListAdapter(listOf())
+        val recipesListAdapter = RecipesListAdapter(listOf(), this@RecipesListFragment.requireContext())
 
         binding.rvRecipesList.adapter = recipesListAdapter
 
@@ -57,7 +57,6 @@ class RecipesListFragment : Fragment(R.layout.fragment_recipes_list) {
 
             when (state.recipesListState) {
                 RecipesListViewModel.RecipesListState.DEFAULT -> {
-                    binding.ivCategory.setImageDrawable(state.categoryImage)
                     binding.tvCategory.text = state.category?.title
                     recipesListAdapter.setNewDataSet(state.recipesList)
                 }

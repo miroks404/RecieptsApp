@@ -44,7 +44,7 @@ class CategoriesListFragment : Fragment() {
     }
 
     private fun initUI() {
-        val categoriesAdapter = CategoryListAdapter(listOf())
+        val categoriesAdapter = CategoryListAdapter(listOf(), this@CategoriesListFragment.requireContext())
 
         binding.rvCategories.adapter = categoriesAdapter
 

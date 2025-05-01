@@ -77,4 +77,6 @@ dependencies {
 
     implementation (libs.retrofit)
     implementation(libs.retrofit.gson.converter)
+
+    implementation (libs.glide)
 }

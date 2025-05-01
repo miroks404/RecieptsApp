@@ -1,16 +1,13 @@
 package ru.miroks404.recieptsapp.ui.recipes.recipesList
 
-import android.app.Application
-import android.graphics.drawable.Drawable
-import android.util.Log
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import ru.miroks404.recieptsapp.data.RecipesRepository
 import ru.miroks404.recieptsapp.model.Category
 import ru.miroks404.recieptsapp.model.Recipe
 
-class RecipesListViewModel(private val application: Application) : AndroidViewModel(application) {
+class RecipesListViewModel : ViewModel() {
 
     enum class RecipesListState {
         DEFAULT,
@@ -20,7 +17,7 @@ class RecipesListViewModel(private val application: Application) : AndroidViewMo
     data class RecipesListUIState(
         val category: Category? = null,
         val recipesList: List<Recipe> = listOf(),
-        val categoryImage: Drawable? = null,
+        val categoryImage: String? = null,
         val recipesListState: RecipesListState = RecipesListState.DEFAULT,
     )
 
@@ -33,7 +30,7 @@ class RecipesListViewModel(private val application: Application) : AndroidViewMo
     fun loadRecipes(categoryId: Int) {
         data.getCategoryByCategoryId(categoryId) {
             if (it != null) {
-                _uiState.postValue(_uiState.value?.copy(category = it))
+                _uiState.postValue(_uiState.value?.copy(category = it, categoryImage = it.imageUrl))
             } else {
                 _uiState.postValue(
                     _uiState.value?.copy(
@@ -55,18 +52,6 @@ class RecipesListViewModel(private val application: Application) : AndroidViewMo
                 )
             }
         }
-        _uiState.value = _uiState.value?.copy(
-            categoryImage = try {
-                Drawable.createFromStream(
-                    application.assets?.open(
-                        _uiState.value?.category?.imageUrl ?: ""
-                    ), null
-                )
-            } catch (e: Exception) {
-                Log.d("Not found", "Image not found: ${_uiState.value?.category?.imageUrl}")
-                null
-            }
-        )
     }
 
 }
