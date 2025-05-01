@@ -47,7 +47,7 @@ class CategoryListAdapter(private var dataSet: List<Category>, private val conte
         holder.descriptionTextView.text = category.description
 
         Glide.with(context)
-            .load("${Constants.BASE_URL}${Constants.CATALOG_URL}${category.imageUrl}")
+            .load("${Constants.IMAGE_URL}${category.imageUrl}")
             .placeholder(R.drawable.img_placeholder)
             .error(R.drawable.img_error)
             .into(holder.imageView)

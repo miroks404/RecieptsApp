@@ -85,7 +85,7 @@ class RecipeFragment : Fragment() {
 
                     if (state.recipeImage != null) {
                         Glide.with(this@RecipeFragment.requireContext())
-                            .load("${Constants.BASE_URL}${Constants.CATALOG_URL}${state.recipeImage}")
+                            .load("${Constants.IMAGE_URL}${state.recipeImage}")
                             .placeholder(R.drawable.img_placeholder)
                             .error(R.drawable.img_error)
                             .into(binding.ivRecipe)

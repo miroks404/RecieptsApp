@@ -45,7 +45,7 @@ class FavoritesAdapter(private var dataSet: List<Recipe>, private val context: C
         holder.titleTextView.text = recipe.title
 
         Glide.with(context)
-            .load("${Constants.BASE_URL}${Constants.CATALOG_URL}${recipe.imageUrl}")
+            .load("${Constants.IMAGE_URL}${recipe.imageUrl}")
             .placeholder(R.drawable.img_placeholder)
             .error(R.drawable.img_error)
             .into(holder.imageView)
