@@ -11,7 +11,7 @@ import androidx.navigation.fragment.findNavController
 import ru.miroks404.recieptsapp.R
 import ru.miroks404.recieptsapp.databinding.FragmentFavoritesBinding
 
-class FavoritesFragment : Fragment() {
+class  FavoritesFragment : Fragment() {
 
     private var _binding: FragmentFavoritesBinding? = null
     private val binding

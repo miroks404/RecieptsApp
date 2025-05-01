@@ -5,6 +5,8 @@ import android.content.Context
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
 import ru.miroks404.recieptsapp.Constants.KEY_SP
 import ru.miroks404.recieptsapp.data.RecipesRepository
 import ru.miroks404.recieptsapp.model.Recipe
@@ -30,9 +32,10 @@ class FavoritesViewModel(private val application: Application) : AndroidViewMode
     fun loadRecipes() {
         val favoritesRecipes = loadFavoritesRecipes().joinToString(",")
         if (favoritesRecipes.isNotEmpty()) {
-            data.getAllRecipesByIds(loadFavoritesRecipes().joinToString(",")) {
-                if (it != null) {
-                    _uiState.postValue(_uiState.value?.copy(favoritesRecipes = it))
+            viewModelScope.launch {
+                val allRecipes =data.getAllRecipesByIds(favoritesRecipes)
+                if (allRecipes != null) {
+                    _uiState.postValue(_uiState.value?.copy(favoritesRecipes = allRecipes))
                 } else {
                     _uiState.postValue(
                         _uiState.value?.copy(

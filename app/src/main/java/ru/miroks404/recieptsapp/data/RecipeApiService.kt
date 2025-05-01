@@ -1,6 +1,5 @@
 package ru.miroks404.recieptsapp.data
 
-import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -10,18 +9,18 @@ import ru.miroks404.recieptsapp.model.Recipe
 interface RecipeApiService {
 
     @GET("category")
-    fun getAllCategories(): Call<List<Category>>
+    suspend fun getAllCategories(): List<Category>
 
     @GET("category/{id}")
-    fun getCategoryByCategoryId(@Path("id") id: Int): Call<Category>
+    suspend fun getCategoryByCategoryId(@Path("id") id: Int): Category
 
     @GET("category/{id}/recipes")
-    fun getAllRecipesByCategoryId(@Path("id") id: Int): Call<List<Recipe>>
+    suspend fun getAllRecipesByCategoryId(@Path("id") id: Int): List<Recipe>
 
     @GET("recipes")
-    fun getAllRecipesByIds(@Query("ids") ids: String): Call<List<Recipe>>
+    suspend fun getAllRecipesByIds(@Query("ids") ids: String): List<Recipe>
 
     @GET("recipe/{id}")
-    fun getRecipeByRecipeId(@Path("id") id: Int): Call<Recipe>
+    suspend fun getRecipeByRecipeId(@Path("id") id: Int): Recipe
 
 }
