@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
+import ru.miroks404.recieptsapp.Constants
 import ru.miroks404.recieptsapp.R
 import ru.miroks404.recieptsapp.databinding.FragmentRecipesListBinding
 
@@ -49,7 +51,8 @@ class RecipesListFragment : Fragment(R.layout.fragment_recipes_list) {
     }
 
     private fun initUI() {
-        val recipesListAdapter = RecipesListAdapter(listOf(), this@RecipesListFragment.requireContext())
+        val recipesListAdapter =
+            RecipesListAdapter(listOf(), this@RecipesListFragment.requireContext())
 
         binding.rvRecipesList.adapter = recipesListAdapter
 
@@ -59,6 +62,14 @@ class RecipesListFragment : Fragment(R.layout.fragment_recipes_list) {
                 RecipesListViewModel.RecipesListState.DEFAULT -> {
                     binding.tvCategory.text = state.category?.title
                     recipesListAdapter.setNewDataSet(state.recipesList)
+
+                    if (state.categoryImage != null) {
+                        Glide.with(this@RecipesListFragment.requireContext())
+                            .load("${Constants.IMAGE_URL}${state.categoryImage}")
+                            .placeholder(R.drawable.img_placeholder)
+                            .error(R.drawable.img_error)
+                            .into(binding.ivCategory)
+                    }
                 }
 
                 RecipesListViewModel.RecipesListState.ERROR -> Toast.makeText(
@@ -66,11 +77,12 @@ class RecipesListFragment : Fragment(R.layout.fragment_recipes_list) {
                     R.string.data_error_text,
                     Toast.LENGTH_SHORT
                 ).show()
-            }
 
+            }
         }
 
-        recipesListAdapter.setOnItemClickListener(object : RecipesListAdapter.OnItemClickListener {
+        recipesListAdapter.setOnItemClickListener(object :
+            RecipesListAdapter.OnItemClickListener {
             override fun onItemClick(recipeId: Int) {
                 openRecipeByRecipeId(recipeId)
             }

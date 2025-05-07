@@ -7,6 +7,8 @@ import androidx.core.content.edit
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
 import ru.miroks404.recieptsapp.Constants.KEY_SP
 import ru.miroks404.recieptsapp.data.RecipesRepository
 import ru.miroks404.recieptsapp.model.Recipe
@@ -36,9 +38,10 @@ class RecipeViewModel(private val application: Application) : AndroidViewModel(a
         _uiState.value = _uiState.value?.copy(
             isFavorite = recipeId.toString() in getFavorites(),
         )
-        data.getRecipeByRecipeId(recipeId) {
-            if (it != null) {
-                _uiState.postValue(_uiState.value?.copy(recipe = it, recipeImage = it.imageUrl))
+        viewModelScope.launch {
+            val recipe = data.getRecipeByRecipeId(recipeId)
+            if (recipe != null) {
+                _uiState.postValue(_uiState.value?.copy(recipe = recipe, recipeImage = recipe.imageUrl))
             } else {
                 _uiState.postValue(
                     _uiState.value?.copy(
