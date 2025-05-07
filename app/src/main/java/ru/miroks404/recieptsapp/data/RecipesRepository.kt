@@ -1,5 +1,6 @@
 package ru.miroks404.recieptsapp.data
 
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
@@ -10,7 +11,7 @@ import ru.miroks404.recieptsapp.Constants
 import ru.miroks404.recieptsapp.model.Category
 import ru.miroks404.recieptsapp.model.Recipe
 
-class RecipesRepository {
+class RecipesRepository(private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO) {
 
     private val okHttpClient = OkHttpClient.Builder()
         .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
@@ -25,7 +26,7 @@ class RecipesRepository {
     private val service = retrofit.create(RecipeApiService::class.java)
 
     suspend fun getAllCategories() : List<Category>? =
-        withContext(Dispatchers.IO) {
+        withContext(ioDispatcher) {
             val listOfCategories = try {
                 service.getAllCategories()
             } catch (e: Exception) {
@@ -35,7 +36,7 @@ class RecipesRepository {
         }
 
     suspend fun getCategoryByCategoryId(id: Int) : Category? =
-        withContext(Dispatchers.IO) {
+        withContext(ioDispatcher) {
             val category = try {
                 service.getCategoryByCategoryId(id)
             } catch (e: Exception) {
@@ -45,7 +46,7 @@ class RecipesRepository {
         }
 
     suspend fun getAllRecipesByCategoryId(id: Int) : List<Recipe>? =
-        withContext(Dispatchers.IO) {
+        withContext(ioDispatcher) {
             val recipes = try {
                 service.getAllRecipesByCategoryId(id)
             } catch (e: Exception) {
@@ -55,7 +56,7 @@ class RecipesRepository {
         }
 
     suspend fun getAllRecipesByIds(ids: String) : List<Recipe>? =
-        withContext(Dispatchers.IO) {
+        withContext(ioDispatcher) {
             val recipes = try {
                 service.getAllRecipesByIds(ids)
             } catch (e: Exception) {
@@ -65,7 +66,7 @@ class RecipesRepository {
         }
 
     suspend fun getRecipeByRecipeId(id: Int) : Recipe? =
-        withContext(Dispatchers.IO) {
+        withContext(ioDispatcher) {
             val recipe = try {
                 service.getRecipeByRecipeId(id)
             } catch (e: Exception) {

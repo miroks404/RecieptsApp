@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:src="@drawable/bcg_recipes_list" />
+            android:src="@drawable/img_placeholder" />
 
         <TextView
             android:id="@+id/tvCategory"

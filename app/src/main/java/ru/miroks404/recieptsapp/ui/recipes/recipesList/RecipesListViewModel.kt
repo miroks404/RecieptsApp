@@ -32,23 +32,19 @@ class RecipesListViewModel : ViewModel() {
     fun loadRecipes(categoryId: Int) {
         viewModelScope.launch {
             val category = data.getCategoryByCategoryId(categoryId)
-            if (category != null) {
-                _uiState.postValue(_uiState.value?.copy(category = category, categoryImage = category.imageUrl))
+            val allRecipes = data.getAllRecipesByCategoryId(categoryId)
+            if (category != null && allRecipes != null) {
+                _uiState.postValue(
+                    _uiState.value?.copy(
+                        category = category,
+                        recipesList = allRecipes,
+                        categoryImage = category.imageUrl
+                    )
+                )
             } else {
                 _uiState.postValue(
                     _uiState.value?.copy(
                         category = null,
-                        recipesListState = RecipesListState.ERROR
-                    )
-                )
-            }
-
-            val allRecipes = data.getAllRecipesByCategoryId(categoryId)
-            if (allRecipes != null) {
-                _uiState.postValue(_uiState.value?.copy(recipesList = allRecipes))
-            } else {
-                _uiState.postValue(
-                    _uiState.value?.copy(
                         recipesList = listOf(),
                         recipesListState = RecipesListState.ERROR
                     )
